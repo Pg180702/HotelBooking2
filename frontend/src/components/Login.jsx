@@ -1,0 +1,83 @@
+import React, { useContext, useState } from "react";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  Button,
+} from "@mui/material";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "./UserContext";
+const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const { setUserInfo } = useContext(UserContext);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:4000/api/v1/users/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    //console.log(response);
+    if (response.ok) {
+      response.json().then((userInfo) => {
+        console.log(userInfo);
+        setUserInfo(userInfo);
+        setRedirect(true);
+      });
+    } else alert("Wrong Credentials");
+  };
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
+  return (
+    <div>
+      <Grid>
+        <Card
+          sx={{
+            maxWidth: 800,
+            padding: "20px 5px",
+            margin: "140px auto auto auto",
+          }}
+        >
+          <CardContent>
+            <Typography variant="h5">Login</Typography>
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid xs={12} sm={12} item>
+                  <TextField
+                    placeholder="Enter Email"
+                    label="Email"
+                    variant="outlined"
+                    fullWidth
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Grid>
+                <Grid xs={12} sm={12} item>
+                  <TextField
+                    placeholder="Enter Password"
+                    label="Password"
+                    variant="outlined"
+                    fullWidth
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Grid>
+                <Grid xs={12} sm={12} item>
+                  <Button type="submit" variant="contained" fullWidth>
+                    Submit
+                  </Button>
+                </Grid>
+              </Grid>
+            </form>
+          </CardContent>
+        </Card>
+      </Grid>
+    </div>
+  );
+};
+
+export default Login;
