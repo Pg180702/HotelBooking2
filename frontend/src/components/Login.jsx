@@ -26,6 +26,7 @@ const Login = () => {
     if (response.ok) {
       response.json().then((userInfo) => {
         console.log(userInfo);
+        sessionStorage.setItem("userid", userInfo.id);
         setUserInfo(userInfo);
         setRedirect(true);
       });

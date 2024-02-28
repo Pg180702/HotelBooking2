@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -17,14 +17,22 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const { setUserInfo, userInfo } = useContext(UserContext);
+  //const [username, setUsername] = useState("");
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const username = sessionStorage.getItem("userid");
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const username = userInfo?.email;
+  const handleLogout = () => {
+    sessionStorage.removeItem("userid");
+    window.location.href = "/";
+  };
+  // const username = userInfo?.email;
+
   //console.log(userInfo.id);
+  console.log(username);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -97,16 +105,15 @@ const Header = () => {
             )}
             {username && (
               <>
-                <Link to="/logout">
-                  <Button
-                    sx={{
-                      color: "white",
-                      display: { xs: "none", sm: "block" },
-                    }}
-                  >
-                    Logout
-                  </Button>
-                </Link>
+                <Button
+                  sx={{
+                    color: "white",
+                    display: { xs: "none", sm: "block" },
+                  }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
                 <Link to="/hotels">
                   <Button
                     sx={{
