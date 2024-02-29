@@ -21,8 +21,8 @@ const BestHotels = () => {
     });
   }, []);
   return (
-    <Container maxWidth="lg">
-      <Typography variant="h4" align="center" marginTop="40px">
+    <Container maxWidth="lg" sx={{ margin: "10px auto" }}>
+      <Typography variant="h4" align="center" marginTop="80px">
         Best Hotels
       </Typography>
       <Grid container spacing={5} marginTop="10px">
