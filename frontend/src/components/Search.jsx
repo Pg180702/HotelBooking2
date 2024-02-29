@@ -37,7 +37,7 @@ const Search = () => {
   };
   return (
     <>
-      <h2 style={{ marginLeft: "16rem" }}>Book Your next stay</h2>
+      <h2 style={{ marginLeft: "4.5rem" }}>Book Your next stay</h2>
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
@@ -57,22 +57,26 @@ const Search = () => {
               name="destination"
               value={formData.destination}
               onChange={handleInputChange}
+              sx={{ border: "2px solid #284b63" }}
             />
             <TextField
               variant="outlined"
               label="Enter  people"
               name="people"
               value={formData.people}
+              sx={{ border: "2px solid #284b63" }}
               onChange={handleInputChange}
             />
             <DatePicker
               label="Basic date picker"
               onChange={handleInputChange}
+              sx={{ border: "2px solid #284b63" }}
               name="checkInDate"
             />
             <DatePicker
               label="Basic date picker"
               onChange={handleInputChange}
+              sx={{ border: "2px solid #284b63" }}
               name="checkOutDate"
             />
             <Link to={`/search-items/${formData.destination}`}>
