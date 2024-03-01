@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
 
 const Footer = () => {
@@ -12,16 +12,41 @@ const Footer = () => {
       component="footer"
     >
       <Typography variant="h6" align="center" gutterBottom>
-        Footer
+        Get In Touch With Us!!
       </Typography>
-      <Typography
+      {/* <Typography
         variant="subtitle1"
         align="center"
         color="text.secondary"
         component="p"
       >
         Something here to give the footer a purpose!
-      </Typography>
+      </Typography> */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "20px",
+          marginTop: "20px",
+        }}
+      >
+        <TextField
+          id="outlined-controlled"
+          placeholder="Enter Your Email"
+          sx={{
+            "& input": {
+              height: "15px", // Adjust the height as needed
+              width: "30vw",
+              backgroundColor: "white",
+              borderRadius: "5px",
+            },
+          }}
+        />
+        <Button variant="contained" sx={{ height: "46px" }}>
+          Subscribe
+        </Button>
+      </div>
     </Box>
   );
 };

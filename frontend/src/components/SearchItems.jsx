@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Footer from "./Footer";
 //import { SearchContext } from "./SearchContext";
 const SearchItems = () => {
   //onst { setDestination } = useContext(SearchContext);
@@ -64,6 +65,7 @@ const SearchItems = () => {
           ))}
         </Grid>
       </div>
+      <Footer />
     </>
   );
 };

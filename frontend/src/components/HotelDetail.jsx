@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { UserContext } from "./UserContext";
 import { loadStripe } from "@stripe/stripe-js";
+import Footer from "./Footer";
 
 const HotelDetail = () => {
   const { id } = useParams();
@@ -104,111 +105,114 @@ const HotelDetail = () => {
   }
 
   return (
-    <div style={{ margin: "7%" }}>
-      <Stack direction="column" spacing={2}>
-        <Typography variant="h4">{hotel.title}</Typography>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
-              <Card>
-                <CardMedia
-                  sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                  image={hotel.images[0]}
-                ></CardMedia>
-              </Card>
+    <>
+      <div style={{ margin: "7%" }}>
+        <Stack direction="column" spacing={2}>
+          <Typography variant="h4">{hotel.title}</Typography>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={4}>
+                <Card>
+                  <CardMedia
+                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
+                    image={hotel.images[0]}
+                  ></CardMedia>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Card>
+                  <CardMedia
+                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
+                    image={hotel.images[0]}
+                  ></CardMedia>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Card>
+                  <CardMedia
+                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
+                    image={hotel.images[0]}
+                  ></CardMedia>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <Card>
-                <CardMedia
-                  sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                  image={hotel.images[0]}
-                ></CardMedia>
-              </Card>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={4}>
+                <Card>
+                  <CardMedia
+                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
+                    image={hotel.images[0]}
+                  ></CardMedia>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Card>
+                  <CardMedia
+                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
+                    image={hotel.images[0]}
+                  ></CardMedia>
+                </Card>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <Card>
+                  <CardMedia
+                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
+                    image={hotel.images[0]}
+                  ></CardMedia>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={4}>
-              <Card>
-                <CardMedia
-                  sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                  image={hotel.images[0]}
-                ></CardMedia>
-              </Card>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Grid container spacing={2}>
+              <Grid item sm={8} xs={12}>
+                <Typography variant="p">{hotel.description}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <form onSubmit={handleSubmit}>
+                  <Stack spacing={1}>
+                    <DatePicker
+                      label="Basic date picker"
+                      name="checkInDate"
+                      onChange={(e) => {
+                        handleCheckInDate(e);
+                      }}
+                    />
+                    <DatePicker
+                      label="Basic date picker"
+                      name="checkOutDate"
+                      onChange={(e) => {
+                        handleCheckOutDate(e);
+                      }}
+                    />
+                    <TextField
+                      label="Adult Count"
+                      type="number"
+                      defaultValue={1}
+                      onChange={(e) => setAdultCount(e.target.value)}
+                      InputProps={{ inputProps: { min: 1 } }}
+                    />
+                    <TextField
+                      label="Child Count"
+                      type="number"
+                      defaultValue={0}
+                      onChange={(e) => setChildCount(e.target.value)}
+                      InputProps={{ inputProps: { min: 0 } }}
+                    />
+                    <Button type="submit" variant="contained">
+                      Submit
+                    </Button>
+                  </Stack>
+                </form>
+              </Grid>
             </Grid>
-          </Grid>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
-              <Card>
-                <CardMedia
-                  sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                  image={hotel.images[0]}
-                ></CardMedia>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Card>
-                <CardMedia
-                  sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                  image={hotel.images[0]}
-                ></CardMedia>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Card>
-                <CardMedia
-                  sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                  image={hotel.images[0]}
-                ></CardMedia>
-              </Card>
-            </Grid>
-          </Grid>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Grid container spacing={2}>
-            <Grid item sm={8} xs={12}>
-              <Typography variant="p">{hotel.description}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <form onSubmit={handleSubmit}>
-                <Stack spacing={1}>
-                  <DatePicker
-                    label="Basic date picker"
-                    name="checkInDate"
-                    onChange={(e) => {
-                      handleCheckInDate(e);
-                    }}
-                  />
-                  <DatePicker
-                    label="Basic date picker"
-                    name="checkOutDate"
-                    onChange={(e) => {
-                      handleCheckOutDate(e);
-                    }}
-                  />
-                  <TextField
-                    label="Adult Count"
-                    type="number"
-                    defaultValue={1}
-                    onChange={(e) => setAdultCount(e.target.value)}
-                    InputProps={{ inputProps: { min: 1 } }}
-                  />
-                  <TextField
-                    label="Child Count"
-                    type="number"
-                    defaultValue={0}
-                    onChange={(e) => setChildCount(e.target.value)}
-                    InputProps={{ inputProps: { min: 0 } }}
-                  />
-                  <Button type="submit" variant="contained">
-                    Submit
-                  </Button>
-                </Stack>
-              </form>
-            </Grid>
-          </Grid>
-        </div>
-      </Stack>
-    </div>
+          </div>
+        </Stack>
+      </div>
+      <Footer />
+    </>
   );
 };
 
