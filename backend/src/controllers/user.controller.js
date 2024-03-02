@@ -198,6 +198,13 @@ const stripeSession = async (req, res) => {
   });
   res.status(200).json({ id: session.id });
 };
+const myBookings = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const bookings = await Booking.find({ user: id });
+  console.log(bookings);
+  res.status(200).json(bookings);
+};
 module.exports = {
   registerUser,
   loginUser,
@@ -208,4 +215,5 @@ module.exports = {
   cities,
   booking,
   stripeSession,
+  myBookings,
 };

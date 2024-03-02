@@ -12,5 +12,6 @@ router.route("/best-hotels").get(user.bestHotels);
 router.route("/cities").get(user.cities);
 router.route("/booking/user-id").post(user.booking);
 router.route("/create-checkout-session").post(user.stripeSession);
+router.route("/my-bookings/:id").get(user.myBookings);
 
 module.exports = router;

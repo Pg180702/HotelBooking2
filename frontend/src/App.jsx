@@ -13,6 +13,7 @@ import UserAccount from "./components/UserAccount";
 import SearchItems from "./components/SearchItems";
 import Cancel from "./components/Cancel";
 import Success from "./components/Success";
+import UserBookings from "./components/UserBookings";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/search-item/:id" element={<HotelDetail />} />
               <Route path="/success" element={<Success />} />
               <Route path="/cancel" element={<Cancel />} />
+              <Route path="/user-booking" element={<UserBookings />} />
             </Route>
           </Routes>
         </Router>
