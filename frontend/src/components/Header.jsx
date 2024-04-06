@@ -25,8 +25,12 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  //fix the logout error
   const handleLogout = () => {
     sessionStorage.removeItem("userid");
+    // fetch("http://localhost:4000/api/v1/users/logout").then((response) => {
+    //   response.json().then((r) => console.log(r));
+    // });
     window.location.href = "/";
   };
   // const username = userInfo?.email;
@@ -39,7 +43,7 @@ const Header = () => {
         <AppBar sx={{ backgroundColor: "#284b63" }}>
           <Toolbar>
             <Typography component="div" variant="h6" sx={{ flexGrow: 1 }}>
-              <Link to={"/"}>
+              <Link to={"/"} style={{ textDecoration: "none" }}>
                 <span
                   style={{
                     color: "white",
@@ -52,7 +56,7 @@ const Header = () => {
             </Typography>
             {!username && (
               <>
-                <Link to="/login">
+                <Link to="/login" style={{ textDecoration: "none" }}>
                   <Button
                     sx={{
                       color: "white",
@@ -62,7 +66,7 @@ const Header = () => {
                     Login
                   </Button>
                 </Link>
-                <Link to="/register">
+                <Link to="/register" style={{ textDecoration: "none" }}>
                   <Button
                     sx={{
                       color: "white",
@@ -114,7 +118,7 @@ const Header = () => {
                 >
                   Logout
                 </Button>
-                <Link to="/hotels">
+                <Link to="/hotels" style={{ textDecoration: "none" }}>
                   <Button
                     sx={{
                       color: "white",
@@ -124,7 +128,7 @@ const Header = () => {
                     Hotels
                   </Button>
                 </Link>
-                <Link to="/add-hotel">
+                <Link to="/add-hotel" style={{ textDecoration: "none" }}>
                   <Button
                     sx={{
                       color: "white",

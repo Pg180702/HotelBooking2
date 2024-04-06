@@ -53,7 +53,7 @@ const BestHotels = () => {
                 <CardActions>
                   <Link to={`/search-item/${hotel._id}`}>
                     <Button size="small" color="primary">
-                      Learn More
+                      Explore Hotels
                     </Button>
                   </Link>
                 </CardActions>

@@ -13,6 +13,10 @@ const citiesSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  image: {
+    type: String,
+    required: true,
+  },
 });
 
 const City = new mongoose.model("City", citiesSchema);

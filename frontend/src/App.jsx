@@ -14,6 +14,7 @@ import SearchItems from "./components/SearchItems";
 import Cancel from "./components/Cancel";
 import Success from "./components/Success";
 import UserBookings from "./components/UserBookings";
+import AddRoomToHotel from "./components/AddRoomToHotel";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/success" element={<Success />} />
               <Route path="/cancel" element={<Cancel />} />
               <Route path="/user-booking" element={<UserBookings />} />
+              <Route path="/add-room/:id" element={<AddRoomToHotel />} />
             </Route>
           </Routes>
         </Router>

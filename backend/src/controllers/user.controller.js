@@ -8,6 +8,7 @@ const uploadOnCloudinary = require("../utils/cloudinary");
 const Hotel = require("../models/hotel.models");
 const City = require("../models/cities.models");
 const Booking = require("../models/bookings.models");
+const Room = require("../models/rooms.models");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const generateAccessToken = async (userId) => {
@@ -36,13 +37,13 @@ const registerUser = async (req, res) => {
     password,
     email,
   });
-  const { token } = await generateAccessToken(user._id);
+  // const { token } = await generateAccessToken(user._id);
   const createdUser = await User.findById(user._id).select("-password");
   if (!createdUser) {
     throw new ApiError(500, "Cannot Register User");
   }
   const options = { httpOnly: true, secure: true };
-  return res.status(200).cookie("token", token, options).json(createdUser);
+  return res.status(200).json(createdUser);
 };
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -61,6 +62,7 @@ const loginUser = async (req, res) => {
     expiresIn: "1d",
   });
   const options = { httpOnly: true, secure: true };
+  //console.log(token);
   return res
     .status(200)
     .cookie("auth_token", token, options)
@@ -78,7 +80,7 @@ const addHotel = async (req, res) => {
     childCount,
     facilities,
   } = req.body;
-  // console.log(req.body);
+  console.log(req.body);
   //console.log(req.files);
   if (
     !name ||
@@ -205,6 +207,62 @@ const myBookings = async (req, res) => {
   console.log(bookings);
   res.status(200).json(bookings);
 };
+const logout = async (req, res) => {
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+  res.status(200).clearCookie("auth_token", options).json("Logout Success");
+};
+const addRooms = async (req, res) => {
+  const { typeOfRoom, price, maxPeople, desc, roomNumbers } = req.body;
+  console.log(req.body);
+  const id = req.params.id; // Assuming the hotel ID is passed in the request params
+  const hotel = await Hotel.findById(id);
+
+  try {
+    // Create a new Room instance
+    const room = await Room.create({
+      typeOfRoom,
+      price: Number(price),
+      maxPeople: Number(maxPeople),
+      desc,
+      roomNumbers: [{ number: Number(roomNumbers), unavailability: "" }], // Pushing a single room number object
+    });
+
+    // Save the new room to the database
+    // const savedRoom = await room.save();
+
+    // Update the hotel with the new room
+    const addToHotel = await Hotel.findByIdAndUpdate(id, {
+      $push: { rooms: room._id },
+    });
+
+    res.status(200).json("Room created");
+  } catch (error) {
+    // Handle any errors that occur during room creation or hotel update
+    console.error(error);
+    res.status(500).json({ error: "Failed to create room" });
+  }
+};
+const getRoomData = async (req, res) => {
+  const { id } = req.params;
+  const room = await Room.findById(id);
+  console.log(room);
+  return res.status(200).json(room);
+};
+const updateRoom = async (req, res) => {
+  const { id } = req.params;
+  const { date } = req.body;
+  const finaldate = new Date(date.substring(0, 10));
+  console.log(finaldate);
+  const room = await Room.findByIdAndUpdate(
+    id,
+    { $set: { "roomNumbers.$[].unavailability": finaldate } },
+    { new: true }
+  );
+  return res.status(200).json(room);
+};
 module.exports = {
   registerUser,
   loginUser,
@@ -216,4 +274,7 @@ module.exports = {
   booking,
   stripeSession,
   myBookings,
+  addRooms,
+  getRoomData,
+  updateRoom,
 };

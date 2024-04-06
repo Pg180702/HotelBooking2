@@ -39,6 +39,9 @@ const hotelSchema = new mongoose.Schema(
       required: true,
     },
     images: [{ type: String }],
+    rooms: {
+      type: [String],
+    },
   },
   { timestamps: true }
 );
