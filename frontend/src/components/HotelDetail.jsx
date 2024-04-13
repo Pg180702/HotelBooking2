@@ -34,7 +34,10 @@ const HotelDetail = () => {
   const { id } = useParams();
   const { setUserInfo, userInfo } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => {
+    setRoomsToBook([]);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
   const [hotel, setHotel] = useState({});
   const [checkInDate, setCheckInDate] = useState("");
@@ -42,6 +45,8 @@ const HotelDetail = () => {
   const [adultCount, setAdultCount] = useState("");
   const [childCount, setChildCount] = useState("");
   const [rooms, setRooms] = useState([]);
+  const [checkOutDate2, setCheckOutDate2] = useState("");
+  const [roomsToBook, setRoomsToBook] = useState([]);
   const userid = userInfo.id;
   useEffect(() => {
     fetch(`http://localhost:4000/api/v1/users/search-item/${id}`).then(
@@ -52,10 +57,11 @@ const HotelDetail = () => {
   }, []);
   const roomsArray = hotel.rooms;
   const handleHotel = async () => {
+    console.log(checkOutDate);
     Promise.all(
       roomsArray.map((roomString) =>
         fetch(
-          `http://localhost:4000/api/v1/users/get-roomdata/${roomString}`
+          `http://localhost:4000/api/v1/users/get-roomdata/${roomString}?date=${checkOutDate2}`
         ).then((response) => response.json())
       )
     ).then((roomsData) => {
@@ -76,6 +82,7 @@ const HotelDetail = () => {
     console.log(value);
     let stringdate = value.toISOString();
     console.log(stringdate);
+    setCheckOutDate2(stringdate);
     const indexofT = stringdate.indexOf("T");
     setCheckOutDate(stringdate.substring(0, indexofT));
   };
@@ -112,6 +119,7 @@ const HotelDetail = () => {
       childCount,
       id,
       userid,
+      roomsToBook,
     };
     const headers = {
       "Content-Type": "application/json",
@@ -130,6 +138,14 @@ const HotelDetail = () => {
     });
     if (result.error) {
       console.log(result.error);
+    }
+  };
+  const handleCheckboxChange = (roomNumber, price, isChecked) => {
+    console.log(roomNumber);
+    console.log(price);
+    if (isChecked) {
+      const room = { number: roomNumber, price: price };
+      setRoomsToBook((prevRooms) => [...prevRooms, room]);
     }
   };
   if (!hotel.images || hotel.images.length === 0) {
@@ -203,48 +219,46 @@ const HotelDetail = () => {
                 <Typography variant="p">{hotel.description}</Typography>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <form onSubmit={handleSubmit}>
-                  <Stack spacing={1}>
-                    <DatePicker
-                      label="Basic date picker"
-                      name="checkInDate"
-                      onChange={(e) => {
-                        handleCheckInDate(e);
-                      }}
-                    />
-                    <DatePicker
-                      label="Basic date picker"
-                      name="checkOutDate"
-                      onChange={(e) => {
-                        handleCheckOutDate(e);
-                      }}
-                    />
-                    <TextField
-                      label="Adult Count"
-                      type="number"
-                      defaultValue={1}
-                      onChange={(e) => setAdultCount(e.target.value)}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                    <TextField
-                      label="Child Count"
-                      type="number"
-                      defaultValue={0}
-                      onChange={(e) => setChildCount(e.target.value)}
-                      InputProps={{ inputProps: { min: 0 } }}
-                    />
-                    <Button type="submit" variant="contained">
-                      Submit
-                    </Button>
-                  </Stack>
-                </form>
+                <Stack spacing={1}>
+                  <DatePicker
+                    label="Basic date picker"
+                    name="checkInDate"
+                    onChange={(e) => {
+                      handleCheckInDate(e);
+                    }}
+                  />
+                  <DatePicker
+                    label="Basic date picker"
+                    name="checkOutDate"
+                    onChange={(e) => {
+                      handleCheckOutDate(e);
+                    }}
+                  />
+                  <TextField
+                    label="Adult Count"
+                    type="number"
+                    defaultValue={1}
+                    onChange={(e) => setAdultCount(e.target.value)}
+                    InputProps={{ inputProps: { min: 1 } }}
+                  />
+                  <TextField
+                    label="Child Count"
+                    type="number"
+                    defaultValue={0}
+                    onChange={(e) => setChildCount(e.target.value)}
+                    InputProps={{ inputProps: { min: 0 } }}
+                  />
+                  <Button variant="contained" onClick={handleOpen}>
+                    Submit
+                  </Button>
+                </Stack>
               </Grid>
             </Grid>
           </div>
           <Link to={`/add-room/${id}`}>
             <Button>Add Room</Button>
           </Link>
-          <Button onClick={handleOpen}>Open modal</Button>
+          <Button>Open modal</Button>
           <Modal
             open={open}
             onClose={handleClose}
@@ -252,27 +266,47 @@ const HotelDetail = () => {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              {rooms.map((room) => {
-                return (
-                  <Box>
-                    <Stack direction="column" gap={2}>
-                      <Stack direction="row" gap={2}>
-                        <Typography variant="h6">{room.typeOfRoom}</Typography>
-                        <Typography variant="p">
-                          MaxPeople:{room.maxPeople}
-                        </Typography>
-                      </Stack>
-                      <Stack direction="row" gap={2}>
-                        <Typography variant="h6">Price:{room.price}</Typography>
-                        <Typography variant="p">
-                          {room.roomNumbers.number}
-                        </Typography>
-                      </Stack>
-                      <Checkbox />
-                    </Stack>
-                  </Box>
-                );
-              })}
+              {rooms
+                .filter((room) => room !== null)
+                .slice(0, 3)
+                .map((room) => {
+                  return (
+                    <Box>
+                      <form>
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="row" gap={2}>
+                            <Typography variant="h6">
+                              {room.typeOfRoom}
+                            </Typography>
+                            <Typography variant="p">
+                              MaxPeople:{room.maxPeople}
+                            </Typography>
+                          </Stack>
+                          <Stack direction="row" gap={2}>
+                            <Typography variant="h6">
+                              Price:{room.price}
+                            </Typography>
+                            <Typography variant="p">
+                              {room.roomNumbers.number}
+                            </Typography>
+                          </Stack>
+                          <Checkbox
+                            onChange={(e) =>
+                              handleCheckboxChange(
+                                room.roomNumbers[0].number,
+                                room.price,
+                                e.target.checked
+                              )
+                            }
+                          />
+                        </Stack>
+                      </form>
+                    </Box>
+                  );
+                })}
+              <Button type="submit" variant="contained" onClick={handleSubmit}>
+                Submit
+              </Button>
             </Box>
           </Modal>
           <Button onClick={handleHotel}>Check</Button>

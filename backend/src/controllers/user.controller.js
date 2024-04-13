@@ -157,21 +157,32 @@ const booking = async (req, res) => {
   res.status(200).json(bookings);
 };
 const stripeSession = async (req, res) => {
-  const { checkInDate, checkOutDate, adultCount, childCount, id, userid } =
-    req.body;
+  const {
+    checkInDate,
+    checkOutDate,
+    adultCount,
+    childCount,
+    id,
+    userid,
+    roomsToBook,
+  } = req.body;
+  console.log(req.body);
+  // let finalprice = 0;
   const hotelid = new mongoose.Types.ObjectId(id);
   const userBookingId = new mongoose.Types.ObjectId(userid);
   const hotelprice = await Hotel.findById(hotelid);
-  const price = hotelprice.pricePerNight;
+  const finalprice = roomsToBook.reduce((total, room) => total + room.price, 0);
+  console.log(finalprice);
+  const finalprice2 = finalprice * 100;
   const qty = Number(adultCount) + Number(childCount);
-  console.log(price);
+  // console.log(price);
   const data = {
     price_data: {
       currency: "inr",
       product_data: {
         name: hotelprice.name,
       },
-      unit_amount: price * 100,
+      unit_amount: finalprice2,
     },
     quantity: qty,
   };
@@ -195,7 +206,7 @@ const stripeSession = async (req, res) => {
     checkOutDate,
     adultCount: Number(adultCount),
     childCount: Number(childCount),
-    price: Number(qty * price),
+    price: Number(qty * finalprice),
     hotelName: hotelprice.name,
   });
   res.status(200).json({ id: session.id });
@@ -247,9 +258,14 @@ const addRooms = async (req, res) => {
 };
 const getRoomData = async (req, res) => {
   const { id } = req.params;
+  const { date } = req.query;
+  console.log(date);
   const room = await Room.findById(id);
-  console.log(room);
-  return res.status(200).json(room);
+  // console.log(room);
+  //console.log(new Date(date));
+  if (room && new Date(room.roomNumbers[0].unavailability) < new Date(date))
+    res.status(200).json(room);
+  else res.json(null);
 };
 const updateRoom = async (req, res) => {
   const { id } = req.params;
