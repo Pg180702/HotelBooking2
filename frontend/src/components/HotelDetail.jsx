@@ -35,9 +35,14 @@ const HotelDetail = () => {
   const { setUserInfo, userInfo } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
-    setRoomsToBook([]);
-    setOpen(true);
+    if (!username) alert("please login first");
+    else {
+      setRoomsToBook([]);
+      setOpen(true);
+    }
   };
+  const adminusername = sessionStorage.getItem("username");
+  const username = sessionStorage.getItem("userid");
   const handleClose = () => setOpen(false);
   const [hotel, setHotel] = useState({});
   const [checkInDate, setCheckInDate] = useState("");
@@ -55,6 +60,9 @@ const HotelDetail = () => {
       }
     );
   }, []);
+  useEffect(() => {
+    handleHotel();
+  }, [checkInDate]);
   const roomsArray = hotel.rooms;
   const handleHotel = async () => {
     console.log(checkOutDate);
@@ -74,6 +82,7 @@ const HotelDetail = () => {
   const handleCheckInDate = (e) => {
     let value = new Date(e);
     let stringdate = value.toISOString();
+    setCheckOutDate2(stringdate);
     const indexofT = stringdate.indexOf("T");
     setCheckInDate(stringdate.substring(0, indexofT));
   };
@@ -82,7 +91,6 @@ const HotelDetail = () => {
     console.log(value);
     let stringdate = value.toISOString();
     console.log(stringdate);
-    setCheckOutDate2(stringdate);
     const indexofT = stringdate.indexOf("T");
     setCheckOutDate(stringdate.substring(0, indexofT));
   };
@@ -140,11 +148,11 @@ const HotelDetail = () => {
       console.log(result.error);
     }
   };
-  const handleCheckboxChange = (roomNumber, price, isChecked) => {
+  const handleCheckboxChange = (rd, roomNumber, price, isChecked) => {
     console.log(roomNumber);
     console.log(price);
     if (isChecked) {
-      const room = { number: roomNumber, price: price };
+      const room = { number: roomNumber, price: price, roomid: rd };
       setRoomsToBook((prevRooms) => [...prevRooms, room]);
     }
   };
@@ -162,7 +170,12 @@ const HotelDetail = () => {
               <Grid item xs={12} sm={4}>
                 <Card>
                   <CardMedia
-                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
+                    sx={{
+                      height: { lg: 360, md: 500, sm: 700, xs: 360 },
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                      backgroundSize: "cover",
+                    }}
                     image={hotel.images[0]}
                   ></CardMedia>
                 </Card>
@@ -255,10 +268,12 @@ const HotelDetail = () => {
               </Grid>
             </Grid>
           </div>
-          <Link to={`/add-room/${id}`}>
-            <Button>Add Room</Button>
-          </Link>
-          <Button>Open modal</Button>
+          {adminusername === "admin" && (
+            <Link to={`/add-room/${id}`}>
+              <Button>Add Room</Button>
+            </Link>
+          )}
+          {/* <Button>Open modal</Button> */}
           <Modal
             open={open}
             onClose={handleClose}
@@ -274,31 +289,33 @@ const HotelDetail = () => {
                     <Box>
                       <form>
                         <Stack direction="column" gap={2}>
-                          <Stack direction="row" gap={2}>
+                          <Stack direction="row" gap={4}>
                             <Typography variant="h6">
-                              {room.typeOfRoom}
+                              Room Type: {room.typeOfRoom}
                             </Typography>
-                            <Typography variant="p">
-                              MaxPeople:{room.maxPeople}
+                            <Typography variant="h6">
+                              Room Number:{room.roomNumbers[0].number}
                             </Typography>
                           </Stack>
-                          <Stack direction="row" gap={2}>
+                          <Stack direction="row" gap={4}>
                             <Typography variant="h6">
-                              Price:{room.price}
+                              Room Price :{room.price}
                             </Typography>
-                            <Typography variant="p">
-                              {room.roomNumbers.number}
+                            <Typography variant="h6">
+                              Max People :{room.maxPeople}
                             </Typography>
+                            <Checkbox
+                              onChange={(e) =>
+                                handleCheckboxChange(
+                                  room._id,
+                                  room.roomNumbers[0].number,
+                                  room.price,
+                                  e.target.checked
+                                )
+                              }
+                            />
                           </Stack>
-                          <Checkbox
-                            onChange={(e) =>
-                              handleCheckboxChange(
-                                room.roomNumbers[0].number,
-                                room.price,
-                                e.target.checked
-                              )
-                            }
-                          />
+                          <hr></hr>
                         </Stack>
                       </form>
                     </Box>
@@ -309,7 +326,7 @@ const HotelDetail = () => {
               </Button>
             </Box>
           </Modal>
-          <Button onClick={handleHotel}>Check</Button>
+          {/* <Button onClick={handleHotel}>Check</Button> */}
         </Stack>
       </div>
       <Footer />

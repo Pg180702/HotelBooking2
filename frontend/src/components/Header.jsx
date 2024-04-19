@@ -22,6 +22,8 @@ const Header = () => {
     setAnchorEl(event.currentTarget);
   };
   const username = sessionStorage.getItem("userid");
+  const adminusername = sessionStorage.getItem("username");
+  console.log(adminusername);
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -118,26 +120,28 @@ const Header = () => {
                 >
                   Logout
                 </Button>
-                <Link to="/hotels" style={{ textDecoration: "none" }}>
+                <Link to="/user-booking" style={{ textDecoration: "none" }}>
                   <Button
                     sx={{
                       color: "white",
                       display: { xs: "none", sm: "block" },
                     }}
                   >
-                    Hotels
+                    My Bookings
                   </Button>
                 </Link>
-                <Link to="/add-hotel" style={{ textDecoration: "none" }}>
-                  <Button
-                    sx={{
-                      color: "white",
-                      display: { xs: "none", sm: "block" },
-                    }}
-                  >
-                    Add Hotel
-                  </Button>
-                </Link>
+                {adminusername === "admin" && (
+                  <Link to="/add-hotel" style={{ textDecoration: "none" }}>
+                    <Button
+                      sx={{
+                        color: "white",
+                        display: { xs: "none", sm: "block" },
+                      }}
+                    >
+                      Add Hotel
+                    </Button>
+                  </Link>
+                )}
                 <Button
                   id="demo-positioned-button"
                   aria-controls={open ? "demo-positioned-menu" : undefined}

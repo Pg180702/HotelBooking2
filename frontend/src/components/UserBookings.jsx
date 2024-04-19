@@ -11,6 +11,20 @@ import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 
 const UserBookings = () => {
+  function RoomList({ roomsBooked }) {
+    return (
+      <div>
+        <Typography variant="subtitle1" color="text.secondary" component="div">
+          Rooms Booked:
+        </Typography>
+        <ul>
+          {roomsBooked.map((roomNumber, index) => (
+            <li key={index}>{roomNumber}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
   const [bookings, setBookings] = useState([]);
   const id = sessionStorage.getItem("userid");
   console.log(id);
@@ -81,6 +95,9 @@ const UserBookings = () => {
                   >
                     Price: {booking.price}
                   </Typography>
+                  <div>
+                    <RoomList roomsBooked={booking.roomsBooked} />
+                  </div>
                 </CardContent>
               </Box>
             </Card>

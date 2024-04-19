@@ -66,7 +66,7 @@ const loginUser = async (req, res) => {
   return res
     .status(200)
     .cookie("auth_token", token, options)
-    .json({ id: user._id, email });
+    .json({ id: user._id, firstName: user.firstName });
 };
 const addHotel = async (req, res) => {
   const {
@@ -173,7 +173,7 @@ const stripeSession = async (req, res) => {
   const hotelprice = await Hotel.findById(hotelid);
   const finalprice = roomsToBook.reduce((total, room) => total + room.price, 0);
   console.log(finalprice);
-  const finalprice2 = finalprice * 100;
+  //const finalprice2 = finalprice * 100;
   const qty = Number(adultCount) + Number(childCount);
   // console.log(price);
   const data = {
@@ -182,7 +182,7 @@ const stripeSession = async (req, res) => {
       product_data: {
         name: hotelprice.name,
       },
-      unit_amount: finalprice2,
+      unit_amount: finalprice * 100,
     },
     quantity: qty,
   };
@@ -199,7 +199,17 @@ const stripeSession = async (req, res) => {
     success_url: "http://localhost:5173/success",
     cancel_url: "http://localhost:5173/cancel",
   });
-  //console.log(data);
+  console.log(data);
+  const roomsBooked = roomsToBook.map((room) => room.number);
+  await Promise.all(
+    roomsToBook.map(async (room) => {
+      const findroom = await Room.findById(room.roomid);
+      if (findroom) {
+        findroom.roomNumbers[0].unavailability = checkOutDate;
+        await findroom.save(); // Save the changes to the database
+      }
+    })
+  );
   const booking = await Booking.create({
     user: userBookingId,
     checkInDate,
@@ -208,6 +218,7 @@ const stripeSession = async (req, res) => {
     childCount: Number(childCount),
     price: Number(qty * finalprice),
     hotelName: hotelprice.name,
+    roomsBooked: roomsBooked,
   });
   res.status(200).json({ id: session.id });
 };

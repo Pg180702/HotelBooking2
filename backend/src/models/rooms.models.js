@@ -25,3 +25,15 @@ const roomSchema = new mongoose.Schema(
 
 const Room = new mongoose.model("Room", roomSchema);
 module.exports = Room;
+{
+  /* <Checkbox
+  onChange={(e) =>
+    handleCheckboxChange(
+      room._id,
+      room.roomNumbers[0].number,
+      room.price,
+      e.target.checked
+    )
+  }
+/>; */
+}
