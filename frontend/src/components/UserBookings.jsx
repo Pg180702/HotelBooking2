@@ -55,8 +55,11 @@ const UserBookings = () => {
           return (
             <Card
               sx={{
+                padding: "2rem",
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: "flex-start",
+                // alignItems: "center",
+                gap: "2rem",
                 marginTop: "20px",
                 flexDirection: { sm: "row", xs: "column" },
                 width: { sm: 800 },
@@ -68,24 +71,26 @@ const UserBookings = () => {
                 image="https://media.istockphoto.com/id/119926339/photo/resort-swimming-pool.jpg?s=612x612&w=0&k=20&c=9QtwJC2boq3GFHaeDsKytF4-CavYKQuy1jBD2IRfYKc="
                 alt="Live from space album cover"
               />
-              <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Box
+                sx={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+              >
                 <CardContent sx={{ flex: "1 0 auto" }}>
                   <Typography component="div" variant="h5">
-                    {booking.hotelName}
+                    Hotel: {booking.hotelName}
                   </Typography>
                   <Typography
                     variant="subtitle1"
                     color="text.secondary"
                     component="div"
                   >
-                    Adults:{booking.adultCount} Children:{booking.childCount}
+                    Adults: {booking.adultCount} Children: {booking.childCount}
                   </Typography>
                   <Typography
                     variant="subtitle1"
                     color="text.secondary"
                     component="div"
                   >
-                    checkInDate:{booking.checkInDate} checkOutDate:
+                    Check In Date: {booking.checkInDate} Check Out Date:
                     {booking.checkOutDate}
                   </Typography>
                   <Typography
