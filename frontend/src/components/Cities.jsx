@@ -1,22 +1,30 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Cities = (props) => {
+  const { city } = props;
   return (
     <div
       style={{
         boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)",
         maxWidth: "600px",
-        margin: "auto 1rem",
+        margin: "auto 0.5rem",
         textAlign: "center",
         fontFamily: "arial",
-        borderRadius: "0.5rem",
+        borderRadius: "1rem",
+        position: "relative",
       }}
     >
-      <img
-        style={{ width: "100%", height: "12em", objectFit: "cover" }}
-        src="https://media.istockphoto.com/id/505239248/photo/humayun-tomb-new-delhi-india.jpg?s=612x612&w=0&k=20&c=UQTU6YOnVsSklzHi34cOhNW5AhsACDxKLiD9--T-3Kg="
-        alt="Delhi"
-      />
+      <Link to={`/search-items/${city.name}`}>
+        <img
+          style={{ width: "100%", height: "12em", objectFit: "cover" }}
+          src={city.data}
+          alt="Delhi"
+        />
+      </Link>
+      <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
+        {city.name}
+      </div>
     </div>
   );
 };

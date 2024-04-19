@@ -8,7 +8,36 @@ import "../home.css";
 import Search from "./Search";
 import BestHotels from "./BestHotels";
 import Footer from "./Footer";
-
+const cityData = [
+  {
+    name: "delhi",
+    data: "https://static.toiimg.com/photo/msid-24245804,width-96,height-65.cms",
+  },
+  {
+    name: "mumbai",
+    data: "https://static.toiimg.com/thumb/msid-53891735,width-748,height-499,resizemode=4,imgsize-126102/.jpg",
+  },
+  {
+    name: "bangalore",
+    data: "https://www.shutterstock.com/image-photo/vidhan-soudha-bangalore-_-image-600nw-1433353757.jpg",
+  },
+  {
+    name: "shimla",
+    data: "https://t3.ftcdn.net/jpg/01/05/09/32/360_F_105093204_csAIVsj4UJPJJdWmamOjHThVdW9BdSN6.jpg",
+  },
+  {
+    name: "manali",
+    data: "https://images.unsplash.com/photo-1593181629936-11c609b8db9b?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFuYWxpfGVufDB8fDB8fHww",
+  },
+  {
+    name: "pune",
+    data: "https://media.istockphoto.com/id/1320749212/photo/cityview.jpg?s=612x612&w=0&k=20&c=9ho0mNkHI8jhbagXIxPQDKmlgAW3MqIcuh1hJwungbI=",
+  },
+  {
+    name: "dehradun",
+    data: "https://media.istockphoto.com/id/1140128164/photo/mussoorie-landscape-in-cloudy-rainy-monsoon-season-stock-image.jpg?b=1&s=612x612&w=0&k=20&c=B7srJbaUEnZuhMligGEP2jO5KxdJeeXkd2WAwQbxuqA=",
+  },
+];
 const Home = () => {
   const [cities, setCities] = useState([]);
   useEffect(() => {
@@ -51,8 +80,8 @@ const Home = () => {
           Destinations to Explore
         </h2>
         <Carousel responsive={responsive} itemClass="carousel-class">
-          {cities.map((city) => {
-            return <Cities key={city.id} city={city} />;
+          {cityData.map((city) => {
+            return <Cities city={city} />;
           })}
         </Carousel>
       </Box>
