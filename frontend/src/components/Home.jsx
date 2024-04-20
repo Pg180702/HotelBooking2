@@ -87,7 +87,7 @@ const Home = () => {
       </Box>
       <Destinations />
       <BestHotels />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

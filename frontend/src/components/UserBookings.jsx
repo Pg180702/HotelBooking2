@@ -109,7 +109,7 @@ const UserBookings = () => {
           );
         })}
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

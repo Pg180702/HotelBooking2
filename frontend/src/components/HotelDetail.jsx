@@ -329,7 +329,7 @@ const HotelDetail = () => {
           {/* <Button onClick={handleHotel}>Check</Button> */}
         </Stack>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

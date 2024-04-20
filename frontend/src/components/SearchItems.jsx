@@ -65,7 +65,7 @@ const SearchItems = () => {
           ))}
         </Grid>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };
