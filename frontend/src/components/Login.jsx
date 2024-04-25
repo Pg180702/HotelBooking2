@@ -44,12 +44,13 @@ const Login = () => {
             maxWidth: 800,
             padding: "20px 5px",
             margin: "140px auto auto auto",
+            boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
           }}
         >
           <CardContent>
             <Typography variant="h5">Login</Typography>
             <form onSubmit={handleSubmit}>
-              <Grid container spacing={2}>
+              <Grid container spacing={2} sx={{ padding: "1rem" }}>
                 <Grid xs={12} sm={12} item>
                   <TextField
                     placeholder="Enter Email"
@@ -65,11 +66,17 @@ const Login = () => {
                     label="Password"
                     variant="outlined"
                     fullWidth
+                    type="password"
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </Grid>
                 <Grid xs={12} sm={12} item>
-                  <Button type="submit" variant="contained" fullWidth>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    fullWidth
+                    sx={{ backgroundColor: "#284b63" }}
+                  >
                     Submit
                   </Button>
                 </Grid>

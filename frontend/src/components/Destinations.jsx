@@ -157,11 +157,11 @@ const Destinations = () => {
           sx={{ display: { xs: "block", sm: "none" } }}
         >
           <Link to={"/search-items/Shimla"}>
-            <Card sx={{ maxWidth: 450 }}>
+            <Card sx={{ maxWidth: 450, marginBottom: "1rem" }}>
               <div style={{ position: "relative" }}>
                 <CardMedia
                   component="img"
-                  image="https://images.unsplash.com/photo-1682685796063-d2604827f7b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
+                  image="https://images.unsplash.com/photo-1593183981460-e9276b5a5587?q=80&w=1902&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ objectFit: "cover" }}
                 />
                 <div
@@ -175,17 +175,17 @@ const Destinations = () => {
                     fontSize: "20px",
                   }}
                 >
-                  Delhi
+                  Shimla
                 </div>
               </div>
             </Card>
           </Link>
           <Link to={"/search-items/Manali"}>
-            <Card sx={{ maxWidth: 450 }}>
+            <Card sx={{ maxWidth: 450, marginBottom: "1rem" }}>
               <div style={{ position: "relative" }}>
                 <CardMedia
                   component="img"
-                  image="https://images.unsplash.com/photo-1682685796063-d2604827f7b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
+                  image="https://images.unsplash.com/photo-1605649487212-47bdab064df7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ objectFit: "cover" }}
                 />
                 <div
@@ -199,17 +199,17 @@ const Destinations = () => {
                     fontSize: "20px",
                   }}
                 >
-                  Delhi
+                  Manali
                 </div>
               </div>
             </Card>
           </Link>
           <Link to={"/search-items/Bangalore"}>
-            <Card sx={{ maxWidth: 450 }}>
+            <Card sx={{ maxWidth: 450, marginBottom: "1rem" }}>
               <div style={{ position: "relative" }}>
                 <CardMedia
                   component="img"
-                  image="https://images.unsplash.com/photo-1682685796063-d2604827f7b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
+                  image="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?q=80&w=1854&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ objectFit: "cover" }}
                 />
                 <div
@@ -217,23 +217,23 @@ const Destinations = () => {
                     position: "absolute",
                     color: "black",
                     top: 20,
-                    left: "10%",
+                    left: "14%",
                     transform: "translateX(-50%)",
                     fontWeight: "bold",
                     fontSize: "20px",
                   }}
                 >
-                  Delhi
+                  Bangalore
                 </div>
               </div>
             </Card>
           </Link>
           <Link to={"/search-items/Mumbai"}>
-            <Card sx={{ maxWidth: 450 }}>
+            <Card sx={{ maxWidth: 450, marginBottom: "1rem" }}>
               <div style={{ position: "relative" }}>
                 <CardMedia
                   component="img"
-                  image="https://images.unsplash.com/photo-1682685796063-d2604827f7b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
+                  image="https://images.unsplash.com/photo-1648466384289-c11b57eab6e2?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ objectFit: "cover" }}
                 />
                 <div
@@ -241,13 +241,13 @@ const Destinations = () => {
                     position: "absolute",
                     color: "black",
                     top: 20,
-                    left: "10%",
+                    left: "12%",
                     transform: "translateX(-50%)",
                     fontWeight: "bold",
                     fontSize: "20px",
                   }}
                 >
-                  Delhi
+                  Mumbai
                 </div>
               </div>
             </Card>
@@ -257,7 +257,7 @@ const Destinations = () => {
               <div style={{ position: "relative" }}>
                 <CardMedia
                   component="img"
-                  image="https://images.unsplash.com/photo-1682685796063-d2604827f7b3?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHx8"
+                  image="https://images.unsplash.com/photo-1587474260584-136574528ed5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                   style={{ objectFit: "cover" }}
                 />
                 <div
