@@ -195,8 +195,8 @@ const stripeSession = async (req, res) => {
       childCount: childCount,
     },
     mode: "payment",
-    success_url: "http://localhost:5173/success",
-    cancel_url: "http://localhost:5173/cancel",
+    success_url: "https://hotel-booking2.vercel.app/success",
+    cancel_url: "https://hotel-booking2.vercel.app/cancel",
   });
   console.log(data);
   const roomsBooked = roomsToBook.map((room) => room.number);
