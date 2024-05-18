@@ -28,6 +28,7 @@ const Login = () => {
         console.log(userInfo);
         sessionStorage.setItem("userid", userInfo.id);
         sessionStorage.setItem("username", userInfo.firstName);
+        sessionStorage.setItem("token", userInfo.token);
         setUserInfo(userInfo);
         setRedirect(true);
       });

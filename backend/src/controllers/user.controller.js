@@ -65,8 +65,7 @@ const loginUser = async (req, res) => {
   //console.log(token);
   return res
     .status(200)
-    .cookie("auth_token", token, options)
-    .json({ id: user._id, firstName: user.firstName });
+    .json({ id: user._id, firstName: user.firstName, token: token });
 };
 const addHotel = async (req, res) => {
   const {

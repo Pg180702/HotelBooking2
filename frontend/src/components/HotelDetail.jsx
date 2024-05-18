@@ -120,6 +120,7 @@ const HotelDetail = () => {
     const stripe = await loadStripe(
       "pk_test_51Oo4LkSH1zj9aeAXgpk3WSAMW62VpQz6dxbmjbGP4GhRYZDrBi6y5KAQBMoHhdTgqDyvxTxqXjq2msigk0e5qi4q00TYUmLVc9"
     );
+    const token = sessionStorage.getItem("token");
     const reqbody = {
       checkInDate,
       checkOutDate,
@@ -128,6 +129,7 @@ const HotelDetail = () => {
       id,
       userid,
       roomsToBook,
+      token,
     };
     const headers = {
       "Content-Type": "application/json",
@@ -140,7 +142,7 @@ const HotelDetail = () => {
         body: JSON.stringify(reqbody),
       }
     );
-    if (!response) alert("Kindly Login First");
+    // if (!response) alert("Kindly Login First");
     const session = await response.json();
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
