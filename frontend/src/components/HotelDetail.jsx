@@ -54,11 +54,11 @@ const HotelDetail = () => {
   const [roomsToBook, setRoomsToBook] = useState([]);
   const userid = userInfo.id;
   useEffect(() => {
-    fetch(`http://localhost:4000/api/v1/users/search-item/${id}`).then(
-      (response) => {
-        response.json().then((hotel) => setHotel(hotel));
-      }
-    );
+    fetch(
+      `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-item/${id}`
+    ).then((response) => {
+      response.json().then((hotel) => setHotel(hotel));
+    });
   }, []);
   useEffect(() => {
     handleHotel();
@@ -69,7 +69,7 @@ const HotelDetail = () => {
     Promise.all(
       roomsArray.map((roomString) =>
         fetch(
-          `http://localhost:4000/api/v1/users/get-roomdata/${roomString}?date=${checkOutDate2}`
+          `https://hotelbooking2-9b1p.onrender.com/api/v1/users/get-roomdata/${roomString}?date=${checkOutDate2}`
         ).then((response) => response.json())
       )
     ).then((roomsData) => {
@@ -135,7 +135,7 @@ const HotelDetail = () => {
       "Content-Type": "application/json",
     };
     const response = await fetch(
-      "http://localhost:4000/api/v1/users/create-checkout-session",
+      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/create-checkout-session",
       {
         method: "POST",
         headers: headers,

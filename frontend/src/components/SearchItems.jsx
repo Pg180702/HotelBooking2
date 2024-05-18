@@ -21,11 +21,11 @@ const SearchItems = () => {
   const dest = destination.destination;
   console.log(destination);
   useEffect(() => {
-    fetch(`http://localhost:4000/api/v1/users/search-items/${dest}`).then(
-      (response) => {
-        response.json().then((hotels) => setHotels(hotels));
-      }
-    );
+    fetch(
+      `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-items/${dest}`
+    ).then((response) => {
+      response.json().then((hotels) => setHotels(hotels));
+    });
     console.log(hotels);
   }, []);
   return (

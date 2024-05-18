@@ -12,7 +12,7 @@ const AddRoomToHotel = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const response = fetch(
-      `http://localhost:4000/api/v1/users/add-room/${id}`,
+      `https://hotelbooking2-9b1p.onrender.com/api/v1/users/add-room/${id}`,
       {
         method: "POST",
         headers: {

@@ -41,8 +41,8 @@ const cityData = [
 const Home = () => {
   const [cities, setCities] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:4000/api/v1/users/cities").then((response) =>
-      response.json().then((cities) => setCities(cities))
+    fetch("https://hotelbooking2-9b1p.onrender.com/api/v1/users/cities").then(
+      (response) => response.json().then((cities) => setCities(cities))
     );
   }, []);
   const responsive = {

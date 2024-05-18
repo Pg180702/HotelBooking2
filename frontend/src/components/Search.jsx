@@ -17,7 +17,7 @@ const Search = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "http://localhost:4000/api/v1/users/search-hotel",
+      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-hotel",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

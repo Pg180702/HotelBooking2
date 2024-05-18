@@ -29,11 +29,11 @@ const UserBookings = () => {
   const id = sessionStorage.getItem("userid");
   console.log(id);
   useEffect(() => {
-    fetch(`http://localhost:4000/api/v1/users/my-bookings/${id}`).then(
-      (response) => {
-        response.json().then((data) => setBookings(data));
-      }
-    );
+    fetch(
+      `https://hotelbooking2-9b1p.onrender.com/api/v1/users/my-bookings/${id}`
+    ).then((response) => {
+      response.json().then((data) => setBookings(data));
+    });
     console.log(bookings);
   }, []);
   if (bookings.length === 0) {

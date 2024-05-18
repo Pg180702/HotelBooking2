@@ -18,7 +18,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "http://localhost:4000/api/v1/users/register",
+      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/register",
       {
         method: "POST",
         body: JSON.stringify({ firstName, lastName, email, password }),

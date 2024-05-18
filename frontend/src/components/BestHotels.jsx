@@ -16,7 +16,9 @@ const BestHotels = () => {
   const [hotels, setHotels] = useState([]);
   useEffect(() => {
     //will sort rating wise later on right now can only get 6
-    fetch("http://localhost:4000/api/v1/users/best-hotels").then((response) => {
+    fetch(
+      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/best-hotels"
+    ).then((response) => {
       response.json().then((hotels) => setHotels(hotels));
     });
   }, []);
