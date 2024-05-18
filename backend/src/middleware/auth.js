@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken");
 //const User = require("../models/user.models");
 const verifyToken = async (req, res, next) => {
   try {
-    const token =
-      req.cookies?.auth_token ||
-      req.header("Authorization")?.replace("Bearer ", "");
+    const { token } = req.body;
     if (!token) {
       throw new ApiError(401, "Unauthorized Access");
     }

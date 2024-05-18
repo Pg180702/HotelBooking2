@@ -140,6 +140,7 @@ const HotelDetail = () => {
         body: JSON.stringify(reqbody),
       }
     );
+    if (!response) alert("Kindly Login First");
     const session = await response.json();
     const result = await stripe.redirectToCheckout({
       sessionId: session.id,
