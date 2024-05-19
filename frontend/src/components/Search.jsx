@@ -37,7 +37,7 @@ const Search = () => {
   };
   return (
     <>
-      <h2 style={{ marginLeft: "4.5rem" }}>Book Your next stay</h2>
+      <h2 style={{ marginLeft: "4rem" }}>Book Your next stay</h2>
       <form onSubmit={handleSubmit}>
         <Box
           sx={{

@@ -104,10 +104,14 @@ const Header = () => {
                   }}
                 >
                   <MenuItem onClick={handleClose}>
-                    <Link to={"/login"}>Login</Link>
+                    <Link to={"/login"} style={{ textDecoration: "none" }}>
+                      Login
+                    </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <Link to={"/register"}>Register</Link>
+                    <Link to={"/register"} style={{ textDecoration: "none" }}>
+                      Register
+                    </Link>
                   </MenuItem>
                   {/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
                 </Menu>
@@ -172,7 +176,12 @@ const Header = () => {
                   }}
                 >
                   <MenuItem onClick={handleClose}>
-                    <Link to={"/user-booking"}>My Bookings</Link>
+                    <Link
+                      to={"/user-booking"}
+                      style={{ textDecoration: "none" }}
+                    >
+                      My Bookings
+                    </Link>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
