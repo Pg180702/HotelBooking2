@@ -17,7 +17,12 @@ const Cities = (props) => {
     >
       <Link to={`/search-items/${city.name}`}>
         <img
-          style={{ width: "100%", height: "12em", objectFit: "cover" }}
+          style={{
+            width: "100%",
+            height: "12em",
+            objectFit: "cover",
+            borderRadius: "1rem",
+          }}
           src={city.data}
           alt="Delhi"
         />
