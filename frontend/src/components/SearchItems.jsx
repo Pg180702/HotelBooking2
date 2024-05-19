@@ -57,7 +57,7 @@ const SearchItems = () => {
                 </CardContent>
                 <CardActions>
                   <Link to={`/search-item/${hotel._id}`}>
-                    <Button size="small">Learn More</Button>
+                    <Button size="small">Explore Hotel</Button>
                   </Link>
                 </CardActions>
               </Card>

@@ -28,7 +28,7 @@ const Cities = (props) => {
         />
       </Link>
       <div style={{ position: "absolute", top: "1rem", left: "1rem" }}>
-        {city.name}
+        {city.name.charAt(0).toUpperCase() + city.name.slice(1)}
       </div>
     </div>
   );

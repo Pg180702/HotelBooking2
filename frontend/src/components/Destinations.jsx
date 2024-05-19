@@ -124,7 +124,7 @@ const Destinations = () => {
                 </div>
               </Card>
             </Link>
-            <Link to={`/search-items/delhi`}>
+            <Link to={`/search-items/Delhi`}>
               <Card sx={{ maxWidth: 300 }}>
                 <div style={{ position: "relative" }}>
                   <CardMedia
@@ -252,7 +252,7 @@ const Destinations = () => {
               </div>
             </Card>
           </Link>
-          <Link to={"/search-items/delhi"}>
+          <Link to={"/search-items/Delhi"}>
             <Card sx={{ maxWidth: 450 }}>
               <div style={{ position: "relative" }}>
                 <CardMedia

@@ -237,14 +237,14 @@ const HotelDetail = () => {
               <Grid item xs={12} sm={4}>
                 <Stack spacing={1}>
                   <DatePicker
-                    label="Basic date picker"
+                    label="Check In Date"
                     name="checkInDate"
                     onChange={(e) => {
                       handleCheckInDate(e);
                     }}
                   />
                   <DatePicker
-                    label="Basic date picker"
+                    label="Check Out Date"
                     name="checkOutDate"
                     onChange={(e) => {
                       handleCheckOutDate(e);
