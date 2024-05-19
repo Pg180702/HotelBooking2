@@ -103,9 +103,13 @@ const Header = () => {
                     horizontal: "left",
                   }}
                 >
-                  <MenuItem onClick={handleClose}>Login</MenuItem>
-                  <MenuItem onClick={handleClose}>Register</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Link to={"/login"}>Login</Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Link to={"/register"}>Register</Link>
+                  </MenuItem>
+                  {/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
                 </Menu>
               </>
             )}
@@ -167,8 +171,10 @@ const Header = () => {
                     horizontal: "left",
                   }}
                 >
-                  <MenuItem onClick={handleClose}>Hotels</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={handleClose}>
+                    <Link to={"/user-booking"}>My Bookings</Link>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
               </>
             )}
