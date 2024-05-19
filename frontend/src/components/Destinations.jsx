@@ -265,7 +265,7 @@ const Destinations = () => {
                     position: "absolute",
                     color: "black",
                     top: 20,
-                    left: "8%",
+                    left: "14%",
                     transform: "translateX(-50%)",
                     fontWeight: "bold",
                     fontSize: "20px",
