@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Cities = (props) => {
   const { city } = props;
+  const cityName = city.name.charAt(0).toUpperCase() + city.name.slice(1);
   return (
     <div
       style={{
@@ -15,7 +16,7 @@ const Cities = (props) => {
         position: "relative",
       }}
     >
-      <Link to={`/search-items/${city.name}`}>
+      <Link to={`/search-items/${cityName}`}>
         <img
           style={{
             width: "100%",
