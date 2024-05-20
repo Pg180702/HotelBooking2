@@ -184,7 +184,6 @@ const HotelDetail = () => {
               width: "100%",
               height: { lg: 380, md: 500, sm: 350, xs: 300 },
               marginBottom: "1rem",
-              marginTop: { xs: "2rem" },
             }}
           >
             <ImageSlider imagesArray={hotel.images} />
