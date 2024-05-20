@@ -171,7 +171,7 @@ const HotelDetail = () => {
           marginLeft: "7%",
           marginBottom: "7%",
           marginRight: "7%",
-          marginTop: "50px",
+          marginTop: "10%",
         }}
       >
         <Stack direction="column" spacing={2}>
