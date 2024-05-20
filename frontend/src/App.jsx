@@ -15,6 +15,8 @@ import Cancel from "./components/Cancel";
 import Success from "./components/Success";
 import UserBookings from "./components/UserBookings";
 import AddRoomToHotel from "./components/AddRoomToHotel";
+import SuccessPage from "./components/SuccessPage";
+import CancelPage from "./components/CancelPage";
 
 function App() {
   return (
@@ -33,8 +35,8 @@ function App() {
                 element={<SearchItems />}
               />
               <Route path="/search-item/:id" element={<HotelDetail />} />
-              <Route path="/success-page" element={<Success />} />
-              <Route path="/cancel-page" element={<Cancel />} />
+              <Route path="/success-page" element={<SuccessPage />} />
+              <Route path="/cancel-page" element={<CancelPage />} />
               <Route path="/user-booking" element={<UserBookings />} />
               <Route path="/add-room/:id" element={<AddRoomToHotel />} />
             </Route>

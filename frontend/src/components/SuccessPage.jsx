@@ -1,6 +1,6 @@
 import React from "react";
 
-const Cancel = () => {
+const SuccessPage = () => {
   return (
     <div
       style={{
@@ -20,11 +20,9 @@ const Cancel = () => {
             margin: "0 auto",
           }}
         >
-          <span className="cross" style={{ color: "red", fontSize: "24px" }}>
-            ✕
-          </span>
+          <i className="checkmark">✓</i>
         </div>
-        <h1>Failed</h1>
+        <h1>Success</h1>
         <p>
           Yay!! Your Stay Has been Booked
           <br /> You Can view your booking under My Bookings
@@ -34,4 +32,4 @@ const Cancel = () => {
   );
 };
 
-export default Cancel;
+export default SuccessPage;
