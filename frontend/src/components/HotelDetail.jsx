@@ -166,7 +166,14 @@ const HotelDetail = () => {
 
   return (
     <>
-      <div style={{ margin: "7%" }}>
+      <div
+        style={{
+          marginLeft: "7%",
+          marginBottom: "7%",
+          marginRight: "7%",
+          marginTop: "2rem",
+        }}
+      >
         <Stack direction="column" spacing={2}>
           <Typography variant="h4">{hotel.title}</Typography>
           <Box
@@ -177,6 +184,7 @@ const HotelDetail = () => {
               width: "100%",
               height: { lg: 380, md: 500, sm: 350, xs: 300 },
               marginBottom: "1rem",
+              marginTop: { xs: "2rem" },
             }}
           >
             <ImageSlider imagesArray={hotel.images} />
