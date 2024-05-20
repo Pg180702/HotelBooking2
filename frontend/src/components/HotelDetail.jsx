@@ -175,8 +175,9 @@ const HotelDetail = () => {
               justifyContent: "center",
               maxWidth: "100%",
               width: "100%",
-              height: { sm: "500px", xs: "300px" },
+              height: { sm: "400px", xs: "300px" },
               marginBottom: "1rem",
+              marginTop: "1.5rem",
             }}
           >
             <ImageSlider imagesArray={hotel.images} />
