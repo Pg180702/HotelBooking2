@@ -171,11 +171,11 @@ const HotelDetail = () => {
           marginLeft: "7%",
           marginBottom: "7%",
           marginRight: "7%",
-          marginTop: "10%",
+          marginTop: "8%",
         }}
       >
         <Stack direction="column" spacing={2}>
-          <Typography variant="h4">{hotel.title}</Typography>
+          <Typography variant="h4">{hotel.name}</Typography>
           <Box
             sx={{
               display: "flex",
