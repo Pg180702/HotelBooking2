@@ -169,8 +169,8 @@ const HotelDetail = () => {
       <div style={{ margin: "7%" }}>
         <Stack direction="column" spacing={2}>
           <Typography variant="h4">{hotel.title}</Typography>
-          <div
-            style={{
+          <Box
+            sx={{
               display: "flex",
               justifyContent: "center",
               maxWidth: "100%",
@@ -180,7 +180,7 @@ const HotelDetail = () => {
             }}
           >
             <ImageSlider imagesArray={hotel.images} />
-          </div>
+          </Box>
           {/* <div style={{ display: "flex", justifyContent: "center" }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
