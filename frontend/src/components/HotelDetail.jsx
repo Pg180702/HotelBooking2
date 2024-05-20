@@ -18,6 +18,7 @@ import { UserContext } from "./UserContext";
 import { loadStripe } from "@stripe/stripe-js";
 import Footer from "./Footer";
 import Modal from "@mui/material/Modal";
+import ImageSlider from "./ImageSlider";
 
 const style = {
   position: "absolute",
@@ -168,7 +169,19 @@ const HotelDetail = () => {
       <div style={{ margin: "7%" }}>
         <Stack direction="column" spacing={2}>
           <Typography variant="h4">{hotel.title}</Typography>
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              maxWidth: "1200px",
+              width: "100%",
+              height: "500px",
+              margin: "0 auto",
+            }}
+          >
+            <ImageSlider imagesArray={hotel.images} />
+          </div>
+          {/* <div style={{ display: "flex", justifyContent: "center" }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4}>
                 <Card>
@@ -228,7 +241,7 @@ const HotelDetail = () => {
                 </Card>
               </Grid>
             </Grid>
-          </div>
+          </div> */}
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Grid container spacing={2}>
               <Grid item sm={8} xs={12}>
