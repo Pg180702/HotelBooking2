@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 const ImageSlider = ({ imagesArray }) => {
   const [imageIndex, setImageIndex] = useState(0);
