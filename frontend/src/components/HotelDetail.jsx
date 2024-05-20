@@ -173,10 +173,10 @@ const HotelDetail = () => {
             style={{
               display: "flex",
               justifyContent: "center",
-              maxWidth: "1200px",
+              maxWidth: "100%",
               width: "100%",
-              height: "500px",
-              margin: "0 auto",
+              height: { sm: "500px", xs: "300px" },
+              marginBottom: "1rem",
             }}
           >
             <ImageSlider imagesArray={hotel.images} />
