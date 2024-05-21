@@ -35,8 +35,8 @@ function App() {
                 element={<SearchItems />}
               />
               <Route path="/search-item/:id" element={<HotelDetail />} />
-              <Route path="/success-page" element={<SuccessPage />} />
-              <Route path="/cancel-page" element={<CancelPage />} />
+              <Route path="/success-page" element={<AddHotel />} />
+              <Route path="/cancel-page" element={<Login />} />
               <Route path="/user-booking" element={<UserBookings />} />
               <Route path="/add-room/:id" element={<AddRoomToHotel />} />
             </Route>
