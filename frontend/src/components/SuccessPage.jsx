@@ -33,7 +33,7 @@ const SuccessPage = () => {
           <i
             className="checkmark"
             style={{
-              color: "#9ABC66",
+              color: "#284b63",
               fontSize: "100px",
               lineHeight: "200px",
               marginLeft: "-15px",
@@ -42,7 +42,7 @@ const SuccessPage = () => {
             ✓
           </i>
         </div>
-        <h1>Success</h1>
+        <h1 style={{ color: "#284b63" }}>Success</h1>
         <p>
           Yay!! Your Stay Has been Booked
           <br /> You Can view your booking under My Bookings
