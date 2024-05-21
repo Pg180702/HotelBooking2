@@ -10,7 +10,14 @@ const SuccessPage = () => {
         marginTop: 100,
       }}
     >
-      <div className="card">
+      <div
+        className="card"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <div
           style={{
             borderRadius: "200px",
