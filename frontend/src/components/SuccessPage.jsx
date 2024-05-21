@@ -1,41 +1,19 @@
 import React from "react";
-
+import "../App.css";
 const SuccessPage = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 100,
-      }}
-    >
-      <div
-        className="card"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            borderRadius: "200px",
-            height: "200px",
-            width: "200px",
-            background: "#F8FAF5",
-            margin: "0 auto",
-          }}
-        >
-          <i className="checkmark">✓</i>
+    <body>
+      <div class="card">
+        <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+          <i class="checkmark">✓</i>
         </div>
         <h1>Success</h1>
         <p>
-          Yay!! Your Stay Has been Booked
-          <br /> You Can view your booking under My Bookings
+          Your Hotel Has Been Booked
+          <br /> Kindly Check Your Booking Under My Bookings
         </p>
       </div>
-    </div>
+    </body>
   );
 };
 
