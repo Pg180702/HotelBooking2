@@ -17,8 +17,10 @@ const SuccessPage = () => {
           padding: "60px",
           borderRadius: "4px",
           boxShadow: "0 2px 3px #C8D0D8",
-          display: "inline-block",
-          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <div
