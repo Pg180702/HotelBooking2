@@ -11,8 +11,6 @@ import AddHotel from "./components/AddHotel";
 import HotelDetail from "./components/HotelDetail";
 import UserAccount from "./components/UserAccount";
 import SearchItems from "./components/SearchItems";
-import Cancel from "./components/Cancel";
-import Success from "./components/Success";
 import UserBookings from "./components/UserBookings";
 import AddRoomToHotel from "./components/AddRoomToHotel";
 import SuccessPage from "./components/SuccessPage";
@@ -35,8 +33,8 @@ function App() {
                 element={<SearchItems />}
               />
               <Route path="/search-item/:id" element={<HotelDetail />} />
-              <Route path="/success-page" element={<AddHotel />} />
-              <Route path="/cancel-page" element={<Login />} />
+              <Route path="/success-page" element={<SuccessPage />} />
+              <Route path="/cancel-page" element={<CancelPage />} />
               <Route path="/user-booking" element={<UserBookings />} />
               <Route path="/add-room/:id" element={<AddRoomToHotel />} />
             </Route>
