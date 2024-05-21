@@ -30,6 +30,8 @@ const SuccessPage = () => {
             width: "200px",
             background: "#F8FAF5",
             margin: "0 auto",
+            display: "flex",
+            justifyContent: "center",
           }}
         >
           <i
