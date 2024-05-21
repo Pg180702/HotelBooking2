@@ -38,7 +38,7 @@ const SuccessPage = () => {
               color: "#284b63",
               fontSize: "100px",
               lineHeight: "200px",
-              marginLeft: "-15px",
+              marginLeft: "-20px",
             }}
           >
             ✓
