@@ -50,7 +50,6 @@ const Search = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 1, sm: 1 }}
-            sx={{ padding: "0.5rem" }}
           >
             <TextField
               variant="outlined"
