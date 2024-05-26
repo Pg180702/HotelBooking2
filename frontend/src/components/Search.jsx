@@ -57,7 +57,7 @@ const Search = () => {
               name="destination"
               value={formData.destination}
               onChange={handleInputChange}
-              sx={{ border: "2px solid #284b63" }}
+              sx={{ border: "2px solid #284b63", padding: "0.5rem" }}
             />
             <TextField
               variant="outlined"
