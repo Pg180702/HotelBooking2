@@ -50,6 +50,7 @@ const Search = () => {
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 1, sm: 1 }}
+            sx={{ padding: "0.5rem" }}
           >
             <TextField
               variant="outlined"
@@ -57,7 +58,7 @@ const Search = () => {
               name="destination"
               value={formData.destination}
               onChange={handleInputChange}
-              sx={{ border: "2px solid #284b63", padding: "0.5rem" }}
+              sx={{ border: "2px solid #284b63" }}
             />
             <TextField
               variant="outlined"
