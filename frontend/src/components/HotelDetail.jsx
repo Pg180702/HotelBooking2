@@ -166,12 +166,10 @@ const HotelDetail = () => {
 
   return (
     <>
-      <div
-        style={{
-          marginLeft: "7%",
-          marginBottom: "7%",
-          marginRight: "7%",
-          marginTop: "8%",
+      <Box
+        sx={{
+          mx: { xs: 2, sm: 5, md: 7, lg: 9, xl: 12 },
+          my: { xs: 3, sm: 5, md: 7, lg: 9, xl: 12 },
         }}
       >
         <Stack direction="column" spacing={2}>
@@ -356,7 +354,7 @@ const HotelDetail = () => {
           </Modal>
           {/* <Button onClick={handleHotel}>Check</Button> */}
         </Stack>
-      </div>
+      </Box>
       {/* <Footer /> */}
     </>
   );
