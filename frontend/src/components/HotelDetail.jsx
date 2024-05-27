@@ -169,7 +169,7 @@ const HotelDetail = () => {
       <Box
         sx={{
           mx: { xs: 2, sm: 5, md: 7, lg: 9, xl: 12 },
-          my: { xs: 3, sm: 5, md: 7, lg: 9, xl: 12 },
+          my: { xs: 10, sm: 5, md: 7, lg: 9, xl: 12 },
         }}
       >
         <Stack direction="column" spacing={2}>
