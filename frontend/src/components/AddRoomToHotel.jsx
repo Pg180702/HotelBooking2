@@ -69,7 +69,12 @@ const AddRoomToHotel = () => {
             fullWidth
             onChange={(e) => setroomNumbers(e.target.value)}
           />
-          <Button variant="contained" type="submit" onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            type="submit"
+            onClick={handleSubmit}
+            sx={{ backgroundColor: "#284b63" }}
+          >
             Add Room
           </Button>
         </Stack>

@@ -344,7 +344,12 @@ const HotelDetail = () => {
                     </Box>
                   );
                 })}
-              <Button type="submit" variant="contained" onClick={handleSubmit}>
+              <Button
+                type="submit"
+                variant="contained"
+                onClick={handleSubmit}
+                sx={{ backgroundColor: "#284b63" }}
+              >
                 Submit
               </Button>
             </Box>

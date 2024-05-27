@@ -38,7 +38,6 @@ const Header = () => {
   // const username = userInfo?.email;
 
   //console.log(userInfo.id);
-  console.log(username);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>

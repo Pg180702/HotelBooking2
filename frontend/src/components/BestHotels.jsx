@@ -74,9 +74,10 @@ const BestHotels = () => {
             justifyContent: "center",
             alignItems: "center",
             marginTop: "1.5rem",
+            marginBottom: "1.5rem",
           }}
         >
-          <CircularProgress />
+          <CircularProgress sx={{ color: "#284b63" }} />
         </Box>
       )}
     </Container>

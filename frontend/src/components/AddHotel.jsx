@@ -128,7 +128,12 @@ const AddHotel = () => {
               fullWidth
             />
           </Stack>
-          <Button variant="contained" type="submit" fullWidth>
+          <Button
+            variant="contained"
+            type="submit"
+            fullWidth
+            sx={{ backgroundColor: "#284b63" }}
+          >
             Create Hotel
           </Button>
         </Stack>
