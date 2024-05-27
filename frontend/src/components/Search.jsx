@@ -53,28 +53,28 @@ const Search = () => {
           >
             <TextField
               variant="outlined"
-              label="Enter Destination"
               name="destination"
+              placeholder="Enter Destination"
               value={formData.destination}
               onChange={handleInputChange}
               sx={{ border: "2px solid #284b63" }}
             />
             <TextField
               variant="outlined"
-              label="Enter  people"
+              placeholder="Enter People"
               name="people"
               value={formData.people}
               sx={{ border: "2px solid #284b63" }}
               onChange={handleInputChange}
             />
             <DatePicker
-              label="Basic date picker"
+              label="Check In Date"
               onChange={handleInputChange}
               sx={{ border: "2px solid #284b63" }}
               name="checkInDate"
             />
             <DatePicker
-              label="Basic date picker"
+              placeholder="Check Out Date"
               onChange={handleInputChange}
               sx={{ border: "2px solid #284b63" }}
               name="checkOutDate"

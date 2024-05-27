@@ -7,6 +7,7 @@ import Destinations from "./Destinations";
 import "../home.css";
 import Search from "./Search";
 import BestHotels from "./BestHotels";
+
 import Footer from "./Footer";
 const cityData = [
   {
