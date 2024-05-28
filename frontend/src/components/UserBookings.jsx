@@ -26,6 +26,7 @@ const UserBookings = () => {
     );
   }
   const [bookings, setBookings] = useState([]);
+  const [count, setCount] = useState(0);
   const id = sessionStorage.getItem("userid");
   // console.log(id);
   useEffect(() => {
@@ -34,6 +35,7 @@ const UserBookings = () => {
     ).then((response) => {
       response.json().then((data) => {
         setBookings(data);
+        setCount(data.length);
         console.log(data);
       });
     });
@@ -42,7 +44,7 @@ const UserBookings = () => {
 
   return (
     <>
-      {bookings.length > 0 ? (
+      {count > 0 ? (
         <Container
           maxWidth="lg"
           sx={{
