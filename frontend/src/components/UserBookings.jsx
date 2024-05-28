@@ -37,7 +37,15 @@ const UserBookings = () => {
     console.log(bookings);
   }, []);
   if (bookings.length === 0) {
-    return <div>Loading...</div>;
+    return (
+      <Typography
+        variant="h4"
+        sx={{ display: "flex", jusrifyContent: "center", alignItems: "center" }}
+        fontFamily="Poppins"
+      >
+        No Bookings Yet
+      </Typography>
+    );
   }
 
   return (
@@ -68,7 +76,7 @@ const UserBookings = () => {
               <CardMedia
                 component="img"
                 sx={{ width: { sm: 250, xs: "100%" } }}
-                image="https://media.istockphoto.com/id/119926339/photo/resort-swimming-pool.jpg?s=612x612&w=0&k=20&c=9QtwJC2boq3GFHaeDsKytF4-CavYKQuy1jBD2IRfYKc="
+                image={booking.hotelImage}
                 alt="Live from space album cover"
               />
               <Box
@@ -76,22 +84,29 @@ const UserBookings = () => {
               >
                 <CardContent sx={{ flex: "1 0 auto" }}>
                   <Typography component="div" variant="h5">
-                    Hotel: {booking.hotelName}
+                    {booking.hotelName}
                   </Typography>
                   <Typography
                     variant="subtitle1"
                     color="text.secondary"
                     component="div"
                   >
-                    Adults: {booking.adultCount} Children: {booking.childCount}
+                    Adults: {booking.adultCount} <span> </span> Children:
+                    {booking.childCount}
                   </Typography>
                   <Typography
                     variant="subtitle1"
                     color="text.secondary"
                     component="div"
                   >
-                    Check In Date: {booking.checkInDate} Check Out Date:
-                    {booking.checkOutDate}
+                    Check In Date: {booking.checkInDate}
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    component="div"
+                  >
+                    Check Out Date:{booking.checkOutDate}
                   </Typography>
                   <Typography
                     variant="subtitle1"
