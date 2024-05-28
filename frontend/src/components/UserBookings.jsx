@@ -27,7 +27,7 @@ const UserBookings = () => {
   }
   const [bookings, setBookings] = useState([]);
   const id = sessionStorage.getItem("userid");
-  console.log(id);
+  // console.log(id);
   useEffect(() => {
     fetch(
       `https://hotelbooking2-9b1p.onrender.com/api/v1/users/my-bookings/${id}`
@@ -42,7 +42,7 @@ const UserBookings = () => {
 
   return (
     <>
-      {bookings.length === 0 ? (
+      {bookings.length == 0 ? (
         <Typography
           variant="h4"
           sx={{
