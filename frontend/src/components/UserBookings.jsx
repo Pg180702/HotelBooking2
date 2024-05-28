@@ -42,7 +42,7 @@ const UserBookings = () => {
 
   return (
     <>
-      {bookings.length == 0 ? (
+      {bookings.length === 0 ? (
         <Typography
           variant="h4"
           sx={{
