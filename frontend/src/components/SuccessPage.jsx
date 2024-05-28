@@ -32,6 +32,7 @@ const SuccessPage = () => {
             margin: "0 auto",
             display: "flex",
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <i
@@ -39,19 +40,29 @@ const SuccessPage = () => {
             style={{
               color: "#284b63",
               fontSize: "100px",
-              lineHeight: "200px",
               display: "flex",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
             ✓
           </i>
         </div>
-        <h1 style={{ color: "#284b63" }}>Success</h1>
-        <p>
+        <h1
+          style={{
+            color: "#284b63",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          Success
+        </h1>
+        <p style={{ display: "flex", justifyContent: "center" }}>
           Yay!! Your Stay Has been Booked
-          <br /> You Can view your booking under My Bookings
         </p>
+        <span style={{ display: "flex", justifyContent: "center" }}>
+          You Can View Your Booking Under My Bookings Section
+        </span>
       </div>
     </div>
   );
