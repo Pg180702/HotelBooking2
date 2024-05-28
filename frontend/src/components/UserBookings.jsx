@@ -25,20 +25,60 @@ const UserBookings = () => {
       </div>
     );
   }
+
   const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const id = sessionStorage.getItem("userid");
-  // console.log(id);
+
   useEffect(() => {
     fetch(
       `https://hotelbooking2-9b1p.onrender.com/api/v1/users/my-bookings/${id}`
-    ).then((response) => {
-      response.json().then((data) => {
+    )
+      .then((response) => response.json())
+      .then((data) => {
         setBookings(data);
-        console.log(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
       });
-    });
-    // console.log(bookings);
-  }, []);
+  }, [id]);
+
+  if (loading) {
+    return (
+      <Typography
+        variant="h4"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontFamily: "Poppins",
+          color: "black",
+        }}
+      >
+        Loading...
+      </Typography>
+    );
+  }
+
+  if (error) {
+    return (
+      <Typography
+        variant="h4"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontFamily: "Poppins",
+          color: "black",
+        }}
+      >
+        Error loading bookings
+      </Typography>
+    );
+  }
 
   return (
     <>
@@ -50,7 +90,6 @@ const UserBookings = () => {
             justifyContent: "center",
             alignItems: "center",
             fontFamily: "Poppins",
-            border: "1px solid red",
             color: "black",
           }}
         >
@@ -68,7 +107,7 @@ const UserBookings = () => {
         >
           {bookings.map((booking) => (
             <Card
-              // Make sure to add a unique key for each mapped element
+              key={booking.id} // Add a unique key for each mapped element
               sx={{
                 padding: "2rem",
                 display: "flex",
@@ -97,7 +136,7 @@ const UserBookings = () => {
                     color="text.secondary"
                     component="div"
                   >
-                    Adults: {booking.adultCount} <span> </span> Children:
+                    Adults: {booking.adultCount} <span> </span> Children:{" "}
                     {booking.childCount}
                   </Typography>
                   <Typography
@@ -112,7 +151,7 @@ const UserBookings = () => {
                     color="text.secondary"
                     component="div"
                   >
-                    Check Out Date:{booking.checkOutDate}
+                    Check Out Date: {booking.checkOutDate}
                   </Typography>
                   <Typography
                     variant="subtitle1"
