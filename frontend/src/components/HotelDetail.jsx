@@ -315,44 +315,54 @@ const HotelDetail = () => {
           >
             <Box sx={style}>
               {rooms.length > 0 ? (
-                rooms
-                  .filter((room) => room !== null)
-                  .slice(0, 3)
-                  .map((room) => (
-                    <Box>
-                      <form>
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="row" gap={4}>
-                            <Typography variant="h6">
-                              Room Type: {room.typeOfRoom}
-                            </Typography>
-                            <Typography variant="h6">
-                              Room Number: {room.roomNumbers[0].number}
-                            </Typography>
+                <>
+                  {rooms
+                    .filter((room) => room !== null)
+                    .slice(0, 3)
+                    .map((room) => (
+                      <Box>
+                        <form>
+                          <Stack direction="column" gap={2}>
+                            <Stack direction="row" gap={4}>
+                              <Typography variant="h6">
+                                Room Type: {room.typeOfRoom}
+                              </Typography>
+                              <Typography variant="h6">
+                                Room Number: {room.roomNumbers[0].number}
+                              </Typography>
+                            </Stack>
+                            <Stack direction="row" gap={4}>
+                              <Typography variant="h6">
+                                Room Price: {room.price}
+                              </Typography>
+                              <Typography variant="h6">
+                                Max People: {room.maxPeople}
+                              </Typography>
+                              <Checkbox
+                                onChange={(e) =>
+                                  handleCheckboxChange(
+                                    room._id,
+                                    room.roomNumbers[0].number,
+                                    room.price,
+                                    e.target.checked
+                                  )
+                                }
+                              />
+                            </Stack>
+                            <hr />
                           </Stack>
-                          <Stack direction="row" gap={4}>
-                            <Typography variant="h6">
-                              Room Price: {room.price}
-                            </Typography>
-                            <Typography variant="h6">
-                              Max People: {room.maxPeople}
-                            </Typography>
-                            <Checkbox
-                              onChange={(e) =>
-                                handleCheckboxChange(
-                                  room._id,
-                                  room.roomNumbers[0].number,
-                                  room.price,
-                                  e.target.checked
-                                )
-                              }
-                            />
-                          </Stack>
-                          <hr />
-                        </Stack>
-                      </form>
-                    </Box>
-                  ))
+                        </form>
+                      </Box>
+                    ))}
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    onClick={handleSubmit}
+                    sx={{ backgroundColor: "#284b63" }}
+                  >
+                    Submit
+                  </Button>
+                </>
               ) : (
                 <Typography
                   variant="h4"
@@ -360,21 +370,13 @@ const HotelDetail = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    fontFamily: "Poppins",
+                    fontSize: "2em",
                   }}
-                  fontFamily="Poppins"
-                  fontSize="2em"
                 >
                   No rooms available for Selected dates
                 </Typography>
               )}
-              <Button
-                type="submit"
-                variant="contained"
-                onClick={handleSubmit}
-                sx={{ backgroundColor: "#284b63" }}
-              >
-                Submit
-              </Button>
             </Box>
           </Modal>
 
