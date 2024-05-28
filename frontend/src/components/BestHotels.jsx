@@ -47,8 +47,13 @@ const BestHotels = () => {
                       sx={{ borderRadius: "5px" }}
                     />
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {hotel.title}
+                      <Typography
+                        gutterBottom
+                        variant="h5"
+                        component="div"
+                        fontWeight="bold"
+                      >
+                        {hotel.name}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {hotel.description.substring(0, 200)}

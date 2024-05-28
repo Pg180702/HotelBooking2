@@ -26,7 +26,8 @@ const Register = () => {
       }
     );
     if (response.status === 200) alert("Registration success");
-    else alert("registration failed");
+    else if (response.status === 409) alert("User Already Registered");
+    else alert("Registration Failed");
   };
   return (
     <div>
