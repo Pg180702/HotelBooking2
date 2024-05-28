@@ -1,4 +1,4 @@
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -37,7 +37,20 @@ const Search = () => {
   };
   return (
     <>
-      <h2 style={{ marginLeft: "3.6rem" }}>Book Your next stay</h2>
+      <Typography
+        variant="h2"
+        sx={{
+          marginLeft: { sm: "3.6rem" },
+          display: { xs: "flex", sm: "block" },
+          justifyContent: { xs: "center" },
+          fontWeight: "bold",
+          fontSize: "1.5em",
+          marginBottom: "1rem",
+          fontFamily: "Poppins",
+        }}
+      >
+        Book Your Next Stay
+      </Typography>
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
@@ -64,26 +77,22 @@ const Search = () => {
                 label="Enter Destination"
                 value={formData.destination}
                 onChange={handleInputChange}
-                sx={{ border: "2px solid #284b63" }}
               />
               <TextField
                 variant="outlined"
                 label="Enter People"
                 name="people"
                 value={formData.people}
-                sx={{ border: "2px solid #284b63" }}
                 onChange={handleInputChange}
               />
               <DatePicker
                 label="Check In Date"
                 onChange={handleInputChange}
-                sx={{ border: "2px solid #284b63" }}
                 name="checkInDate"
               />
               <DatePicker
-                placeholder="Check Out Date"
+                label="Check Out Date"
                 onChange={handleInputChange}
-                sx={{ border: "2px solid #284b63" }}
                 name="checkOutDate"
               />
               <Link to={`/search-items/${formData.destination}`}>
