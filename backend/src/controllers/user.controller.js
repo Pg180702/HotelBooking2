@@ -218,6 +218,7 @@ const stripeSession = async (req, res) => {
     price: Number(qty * finalprice),
     hotelName: hotelprice.name,
     roomsBooked: roomsBooked,
+    hotelImage: hotelprice.images[0],
   });
   res.status(200).json({ id: session.id });
 };

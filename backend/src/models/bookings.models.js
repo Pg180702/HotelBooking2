@@ -31,6 +31,10 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  hotelImage: {
+    type: String,
+    required: true,
+  },
   roomsBooked: [{ type: Number }],
 });
 
