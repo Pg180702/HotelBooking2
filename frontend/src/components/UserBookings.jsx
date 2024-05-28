@@ -44,7 +44,7 @@ const UserBookings = () => {
 
   return (
     <>
-      {count > 0 ? (
+      {count !== 0 ? (
         <Container
           maxWidth="lg"
           sx={{
