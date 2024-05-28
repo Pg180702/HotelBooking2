@@ -290,7 +290,11 @@ const HotelDetail = () => {
                     onChange={(e) => setChildCount(e.target.value)}
                     InputProps={{ inputProps: { min: 0 } }}
                   />
-                  <Button variant="contained" onClick={handleOpen}>
+                  <Button
+                    variant="contained"
+                    onClick={handleOpen}
+                    sx={{ backgroundColor: "#284b63" }}
+                  >
                     Submit
                   </Button>
                 </Stack>
@@ -310,11 +314,11 @@ const HotelDetail = () => {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              {rooms
-                .filter((room) => room !== null)
-                .slice(0, 3)
-                .map((room) => {
-                  return (
+              {rooms.length > 0 ? (
+                rooms
+                  .filter((room) => room !== null)
+                  .slice(0, 3)
+                  .map((room) => (
                     <Box>
                       <form>
                         <Stack direction="column" gap={2}>
@@ -323,15 +327,15 @@ const HotelDetail = () => {
                               Room Type: {room.typeOfRoom}
                             </Typography>
                             <Typography variant="h6">
-                              Room Number:{room.roomNumbers[0].number}
+                              Room Number: {room.roomNumbers[0].number}
                             </Typography>
                           </Stack>
                           <Stack direction="row" gap={4}>
                             <Typography variant="h6">
-                              Room Price :{room.price}
+                              Room Price: {room.price}
                             </Typography>
                             <Typography variant="h6">
-                              Max People :{room.maxPeople}
+                              Max People: {room.maxPeople}
                             </Typography>
                             <Checkbox
                               onChange={(e) =>
@@ -344,12 +348,25 @@ const HotelDetail = () => {
                               }
                             />
                           </Stack>
-                          <hr></hr>
+                          <hr />
                         </Stack>
                       </form>
                     </Box>
-                  );
-                })}
+                  ))
+              ) : (
+                <Typography
+                  variant="h4"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  fontFamily="Poppins"
+                  fontSize="2em"
+                >
+                  No rooms available for Selected dates
+                </Typography>
+              )}
               <Button
                 type="submit"
                 variant="contained"
@@ -360,6 +377,7 @@ const HotelDetail = () => {
               </Button>
             </Box>
           </Modal>
+
           {/* <Button onClick={handleHotel}>Check</Button> */}
         </Stack>
       </Box>
