@@ -50,6 +50,8 @@ const UserBookings = () => {
             justifyContent: "center",
             alignItems: "center",
             fontFamily: "Poppins",
+            border: "1px solid red",
+            color: "black",
           }}
         >
           No Bookings Yet
