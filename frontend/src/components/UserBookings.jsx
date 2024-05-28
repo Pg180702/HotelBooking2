@@ -36,37 +36,26 @@ const UserBookings = () => {
     });
     console.log(bookings);
   }, []);
-  if (bookings.length === 0) {
-    return (
-      <Typography
-        variant="h4"
-        sx={{ display: "flex", jusrifyContent: "center", alignItems: "center" }}
-        fontFamily="Poppins"
-      >
-        No Bookings Yet
-      </Typography>
-    );
-  }
 
   return (
     <>
-      <Container
-        maxWidth="lg"
-        sx={{
-          marginTop: "100px",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        {bookings.map((booking) => {
-          return (
+      {bookings.length > 0 ? (
+        <Container
+          maxWidth="lg"
+          sx={{
+            marginTop: "100px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {bookings.map((booking) => (
             <Card
+              // Make sure to add a unique key for each mapped element
               sx={{
                 padding: "2rem",
                 display: "flex",
                 justifyContent: "flex-start",
-                // alignItems: "center",
                 gap: "2rem",
                 marginTop: "20px",
                 flexDirection: { sm: "row", xs: "column" },
@@ -121,10 +110,21 @@ const UserBookings = () => {
                 </CardContent>
               </Box>
             </Card>
-          );
-        })}
-      </Container>
-      {/* <Footer /> */}
+          ))}
+        </Container>
+      ) : (
+        <Typography
+          variant="h4"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontFamily: "Poppins",
+          }}
+        >
+          No Bookings Yet
+        </Typography>
+      )}
     </>
   );
 };
