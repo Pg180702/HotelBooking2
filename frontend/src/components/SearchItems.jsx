@@ -42,17 +42,7 @@ const SearchItems = () => {
   }, []);
   return (
     <>
-      {loading ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress sx={{ color: "#284b63" }} />
-        </Box>
-      ) : (
+      {hotels.length > 0 ? (
         <div
           style={{
             marginTop: 150,
@@ -62,32 +52,44 @@ const SearchItems = () => {
           }}
         >
           <Grid item container spacing={2}>
-            {hotels.map((hotel, index) => (
-              <Grid item xs={12} sm={4} key={hotel._id}>
-                <Card sx={{ maxWidth: 400 }}>
-                  <CardMedia
-                    sx={{ height: 200 }}
-                    image={hotel.images[0]}
-                    title="green iguana"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {hotel.title}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {hotel.description.substring(0, 200)}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Link to={`/search-item/${hotel._id}`}>
-                      <Button size="small">Explore Hotel</Button>
-                    </Link>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))}
+            {hotels.map((hotel, index) => {
+              return (
+                <Grid item xs={12} sm={4} key={hotel._id}>
+                  <Card sx={{ maxWidth: 400 }}>
+                    <CardMedia
+                      sx={{ height: 200 }}
+                      image={hotel.images[0]}
+                      title="green iguana"
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {hotel.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {hotel.description.substring(0, 200)}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Link to={`/search-item/${hotel._id}`}>
+                        <Button size="small">Explore Hotel</Button>
+                      </Link>
+                    </CardActions>
+                  </Card>
+                </Grid>
+              );
+            })}
           </Grid>
         </div>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress sx={{ color: "#284b63" }} />
+        </Box>
       )}
 
       {/* <Footer /> */}

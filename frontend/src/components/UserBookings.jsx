@@ -42,21 +42,7 @@ const UserBookings = () => {
 
   return (
     <>
-      {bookings.length === 0 ? (
-        <Typography
-          variant="h4"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontFamily: "Poppins",
-            border: "1px solid red",
-            color: "black",
-          }}
-        >
-          No Bookings Yet
-        </Typography>
-      ) : (
+      {bookings.length > 0 ? (
         <Container
           maxWidth="lg"
           sx={{
@@ -129,6 +115,16 @@ const UserBookings = () => {
             </Card>
           ))}
         </Container>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          No Bookings Yet
+        </Box>
       )}
     </>
   );
