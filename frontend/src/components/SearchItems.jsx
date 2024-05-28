@@ -63,7 +63,7 @@ const SearchItems = () => {
         >
           <Grid item container spacing={2}>
             {hotels.map((hotel, index) => (
-              <Grid item xs={12} sm={4}>
+              <Grid item xs={12} sm={4} key={hotel._id}>
                 <Card sx={{ maxWidth: 400 }}>
                   <CardMedia
                     sx={{ height: 200 }}
