@@ -47,50 +47,58 @@ const Search = () => {
             marginBottom: "4rem",
           }}
         >
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={{ xs: 1, sm: 1 }}
+          <Box
+            sx={{
+              border: "2px solid #284b63",
+              padding: "1rem", // Adjust padding as needed
+              borderRadius: "8px", // Optional: to give rounded corners
+            }}
           >
-            <TextField
-              variant="outlined"
-              name="destination"
-              placeholder="Enter Destination"
-              value={formData.destination}
-              onChange={handleInputChange}
-              sx={{ border: "2px solid #284b63" }}
-            />
-            <TextField
-              variant="outlined"
-              placeholder="Enter People"
-              name="people"
-              value={formData.people}
-              sx={{ border: "2px solid #284b63" }}
-              onChange={handleInputChange}
-            />
-            <DatePicker
-              label="Check In Date"
-              onChange={handleInputChange}
-              sx={{ border: "2px solid #284b63" }}
-              name="checkInDate"
-            />
-            <DatePicker
-              placeholder="Check Out Date"
-              onChange={handleInputChange}
-              sx={{ border: "2px solid #284b63" }}
-              name="checkOutDate"
-            />
-            <Link to={`/search-items/${formData.destination}`}>
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: "#284b63" }}
-                type="submit"
-                fullWidth
-                style={{ height: "100%" }}
-              >
-                Search
-              </Button>
-            </Link>
-          </Stack>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={{ xs: 1, sm: 1 }}
+            >
+              <TextField
+                variant="outlined"
+                name="destination"
+                label="Enter Destination"
+                value={formData.destination}
+                onChange={handleInputChange}
+                sx={{ border: "2px solid #284b63" }}
+              />
+              <TextField
+                variant="outlined"
+                label="Enter People"
+                name="people"
+                value={formData.people}
+                sx={{ border: "2px solid #284b63" }}
+                onChange={handleInputChange}
+              />
+              <DatePicker
+                label="Check In Date"
+                onChange={handleInputChange}
+                sx={{ border: "2px solid #284b63" }}
+                name="checkInDate"
+              />
+              <DatePicker
+                placeholder="Check Out Date"
+                onChange={handleInputChange}
+                sx={{ border: "2px solid #284b63" }}
+                name="checkOutDate"
+              />
+              <Link to={`/search-items/${formData.destination}`}>
+                <Button
+                  variant="contained"
+                  sx={{ backgroundColor: "#284b63" }}
+                  type="submit"
+                  fullWidth
+                  style={{ height: "100%" }}
+                >
+                  Search
+                </Button>
+              </Link>
+            </Stack>
+          </Box>
         </Box>
       </form>
     </>
