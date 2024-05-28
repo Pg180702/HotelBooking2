@@ -32,9 +32,12 @@ const UserBookings = () => {
     fetch(
       `https://hotelbooking2-9b1p.onrender.com/api/v1/users/my-bookings/${id}`
     ).then((response) => {
-      response.json().then((data) => setBookings(data));
+      response.json().then((data) => {
+        setBookings(data);
+        console.log(data);
+      });
     });
-    console.log(bookings);
+    // console.log(bookings);
   }, []);
 
   return (
