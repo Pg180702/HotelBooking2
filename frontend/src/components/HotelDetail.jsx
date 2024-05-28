@@ -76,7 +76,8 @@ const HotelDetail = () => {
     ).then((roomsData) => {
       // roomsData is an array of room objects received from fetch requests
       console.log(roomsData);
-      setRooms((prevRooms) => [...prevRooms, ...roomsData]);
+      const filteredRoomData = roomsData.filter((room) => room !== null);
+      setRooms((prevRooms) => [...prevRooms, ...filteredRoomData]);
     });
     //console.log(rooms);
   };
