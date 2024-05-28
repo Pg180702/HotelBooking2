@@ -36,7 +36,7 @@ const UserBookings = () => {
       response.json().then((data) => {
         setBookings(data);
         setCount(data.length);
-        console.log(data);
+        console.log(count);
       });
     });
     // console.log(bookings);
