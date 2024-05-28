@@ -82,18 +82,26 @@ const HotelDetail = () => {
   };
   const handleCheckInDate = (e) => {
     let value = new Date(e);
-    let stringdate = value.toISOString();
+
+    let year = value.getFullYear();
+    let month = String(value.getMonth() + 1).padStart(2, "0");
+    let day = String(value.getDate()).padStart(2, "0");
+
+    let stringdate = `${year}-${month}-${day}`;
+    // console.log(stringdate);
     setCheckOutDate2(stringdate);
-    const indexofT = stringdate.indexOf("T");
-    setCheckInDate(stringdate.substring(0, indexofT));
+    setCheckInDate(stringdate);
   };
   const handleCheckOutDate = (e) => {
     let value = new Date(e);
-    console.log(value);
-    let stringdate = value.toISOString();
-    console.log(stringdate);
-    const indexofT = stringdate.indexOf("T");
-    setCheckOutDate(stringdate.substring(0, indexofT));
+
+    let year = value.getFullYear();
+    let month = String(value.getMonth() + 1).padStart(2, "0");
+    let day = String(value.getDate()).padStart(2, "0");
+
+    let stringdate = `${year}-${month}-${day}`;
+    // console.log(stringdate);
+    setCheckOutDate(stringdate);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
