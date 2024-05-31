@@ -118,15 +118,25 @@ const UserBookings = () => {
           ))}
         </Container>
       ) : (
-        <Box
+        <Container
+          maxWidth="lg"
           sx={{
+            marginTop: "100px",
             display: "flex",
-            justifyContent: "center",
+            flexDirection: "column",
             alignItems: "center",
           }}
         >
-          No Bookings Yet
-        </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            No Bookings Yet
+          </Box>
+        </Container>
       )}
     </>
   );
