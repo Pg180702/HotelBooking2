@@ -36,27 +36,27 @@ const SearchItems = () => {
   }, []);
   return (
     <>
-      {loading ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // marginTop: 500,
-            backgroundColor: "red",
-          }}
-        >
-          <CircularProgress sx={{ color: "#284b63" }} />
-        </Box>
-      ) : (
-        <div
-          style={{
-            marginTop: 150,
-            marginLeft: "10%",
-            marginRight: "10%",
-            marginBottom: "10%",
-          }}
-        >
+      <div
+        style={{
+          marginTop: 150,
+          marginLeft: "10%",
+          marginRight: "10%",
+          marginBottom: "10%",
+        }}
+      >
+        {loading ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              // marginTop: 500,
+              backgroundColor: "red",
+            }}
+          >
+            <CircularProgress sx={{ color: "#284b63" }} />
+          </Box>
+        ) : (
           <Grid item container spacing={2}>
             {hotels.map((hotel, index) => {
               return (
@@ -90,10 +90,8 @@ const SearchItems = () => {
               );
             })}
           </Grid>
-        </div>
-      )}
-
-      {/* <Footer /> */}
+        )}
+      </div>
     </>
   );
 };
