@@ -126,7 +126,7 @@ const searchHotels = async (req, res) => {
     throw new ApiError(400, "All Fields Required");
   }
   const hotels = await Hotel.find({ city: destination });
-  //console.log(hotels);
+  console.log(hotels);
   return res.status(200).json(hotels);
 };
 const searchItem = async (req, res) => {
