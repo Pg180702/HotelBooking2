@@ -19,7 +19,7 @@ const SearchItems = () => {
   //   setDestination()
   // },[])
   const [hotels, setHotels] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const destination = useParams();
   const dest = destination.destination;
   console.log(destination);
@@ -30,19 +30,19 @@ const SearchItems = () => {
       .then((response) => {
         response.json().then((hotels) => {
           setHotels(hotels);
-          // setLoading(false);
+          setLoading(false);
           console.log(hotels);
         });
       })
       .catch((error) => {
         console.log(error);
-        // setLoading(false);
+        setLoading(false);
       });
     // console.log(hotels);
   }, []);
   return (
     <>
-      {hotels.length > 0 ? (
+      {!loading ? (
         <div
           style={{
             marginTop: 150,
@@ -91,6 +91,8 @@ const SearchItems = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            marginTop: 500,
+            backgroundColor: "red",
           }}
         >
           <CircularProgress sx={{ color: "#284b63" }} />
