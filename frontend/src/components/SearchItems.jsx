@@ -23,26 +23,32 @@ const SearchItems = () => {
   const destination = useParams();
   const dest = destination.destination;
   console.log(destination);
-  useEffect(() => {
-    fetch(
+  const fetchHotels = async () => {
+    const data = await fetchHotels(
       `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-items/${dest}`
-    )
-      .then((response) => {
-        response.json().then((hotels) => {
-          setHotels(hotels);
-          setLoading(false);
-          console.log(hotels);
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
-    // console.log(hotels);
-  }, [dest]);
+    );
+    const resData = data.json();
+    setHotels(resData);
+    setLoading(false);
+  };
+  useEffect(() => {
+    fetchHotels();
+  }, []);
   return (
     <>
-      {!loading ? (
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            // marginTop: 500,
+            backgroundColor: "red",
+          }}
+        >
+          <CircularProgress sx={{ color: "#284b63" }} />
+        </Box>
+      ) : (
         <div
           style={{
             marginTop: 150,
@@ -85,18 +91,6 @@ const SearchItems = () => {
             })}
           </Grid>
         </div>
-      ) : (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 500,
-            backgroundColor: "red",
-          }}
-        >
-          <CircularProgress sx={{ color: "#284b63" }} />
-        </Box>
       )}
 
       {/* <Footer /> */}
