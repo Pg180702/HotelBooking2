@@ -24,7 +24,7 @@ const SearchItems = () => {
   const dest = destination.destination;
   console.log(destination);
   const fetchHotels = async () => {
-    const data = await fetchHotels(
+    const data = await fetch(
       `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-items/${dest}`
     );
     const resData = data.json();
