@@ -12,26 +12,26 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import Footer from "./Footer";
-//import { SearchContext } from "./SearchContext";
 const SearchItems = () => {
-  //onst { setDestination } = useContext(SearchContext);
-  // useEffect(()=>{
-  //   setDestination()
-  // },[])
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(true);
   const destination = useParams();
   const dest = destination.destination;
   console.log(destination);
-  const fetchHotels = async () => {
-    const data = await fetch(
-      `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-items/${dest}`
-    );
-    const resData = data.json();
-    setHotels(resData);
-    setLoading(false);
-  };
   useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        const response = await fetch(
+          `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-items/${dest}`
+        );
+        const resData = await response.json();
+        setHotels(resData);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchHotels();
   }, []);
   return (
