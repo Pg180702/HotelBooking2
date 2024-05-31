@@ -50,8 +50,7 @@ const SearchItems = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              // marginTop: 500,
-              backgroundColor: "red",
+              marginTop: "4rem",
             }}
           >
             <CircularProgress sx={{ color: "#284b63" }} />
