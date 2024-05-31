@@ -53,7 +53,7 @@ const SearchItems = () => {
               marginTop: "10rem",
             }}
           >
-            <CircularProgress sx={{ color: "#284b63", marginTop: "4rem" }} />
+            <CircularProgress sx={{ color: "#284b63", marginTop: "8rem" }} />
           </Box>
         ) : (
           <Grid item container spacing={2}>
