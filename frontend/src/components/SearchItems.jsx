@@ -39,7 +39,7 @@ const SearchItems = () => {
         setLoading(false);
       });
     // console.log(hotels);
-  }, []);
+  }, [dest]);
   return (
     <>
       {!loading ? (
