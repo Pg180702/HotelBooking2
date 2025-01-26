@@ -317,7 +317,17 @@ const UserReviews = ({ hotelId }) => {
                 </Stack>
               </div>
             </Grid>
-          ) : null}
+          ) : (
+            <Grid item xs={12} sm={4}>
+              <Button
+                variant="contained"
+                onClick={handleOpenReview}
+                sx={{ backgroundColor: "#284b63", marginTop: "2rem" }}
+              >
+                Add A Review
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </div>
       <Modal
