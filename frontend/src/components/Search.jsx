@@ -1,27 +1,29 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import SearchContext from "./SearchContext";
 //import { SearchContext } from "./SearchContext";
 const Search = () => {
-  const [formData, setFormData] = useState({
-    checkInDate: "",
-    checkOutDate: "",
-    destination: "",
-    people: "",
-  });
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+  const { searchContext, setSearchContext } = useContext(SearchContext);
+  const handleInputChange = (eventOrValue, fieldName = null) => {
+    if (fieldName) {
+      // If a field name is provided (for DatePicker), update state directly
+      setSearchContext({ ...searchContext, [fieldName]: eventOrValue });
+    } else {
+      // Handle TextField events normally
+      const { name, value } = eventOrValue.target;
+      setSearchContext({ ...searchContext, [name]: value });
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-hotel",
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/search-hotel`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(searchContext),
       }
     );
     if (response.ok) {
@@ -63,8 +65,9 @@ const Search = () => {
           <Box
             sx={{
               border: "2px solid #284b63",
-              padding: "1rem", // Adjust padding as needed
-              borderRadius: "8px", // Optional: to give rounded corners
+              padding: "0.6rem", // Adjust padding as needed
+              borderRadius: "8px",
+              backgroundColor: "#284b63", // Optional: to give rounded corners
             }}
           >
             <Stack
@@ -74,31 +77,56 @@ const Search = () => {
               <TextField
                 variant="outlined"
                 name="destination"
-                label="Enter Destination"
-                value={formData.destination}
+                placeholder="Enter Destination"
+                value={searchContext?.destination}
                 onChange={handleInputChange}
+                sx={{ backgroundColor: "white", border: "2px solid" }}
               />
               <TextField
                 variant="outlined"
-                label="Enter People"
-                name="people"
-                value={formData.people}
+                name="adultCount"
+                value={searchContext?.adultCount}
+                placeholder="No Of People"
                 onChange={handleInputChange}
+                sx={{ backgroundColor: "white", border: "2px solid" }}
               />
               <DatePicker
-                label="Check In Date"
-                onChange={handleInputChange}
+                onChange={(newValue) =>
+                  handleInputChange(newValue, "checkInDate")
+                }
                 name="checkInDate"
+                value={searchContext?.checkInDate}
+                slotProps={{
+                  textField: {
+                    variant: "outlined",
+                    placeholder: "Check In Date",
+                  },
+                }}
+                sx={{ backgroundColor: "white", border: "2px solid" }}
               />
               <DatePicker
-                label="Check Out Date"
-                onChange={handleInputChange}
+                onChange={(newValue) =>
+                  handleInputChange(newValue, "checkOutDate")
+                }
                 name="checkOutDate"
+                value={searchContext?.checkOutDate}
+                slotProps={{
+                  textField: {
+                    variant: "outlined",
+                    placeholder: "Check Out Date",
+                  },
+                }}
+                sx={{ backgroundColor: "white", border: "2px solid" }}
               />
-              <Link to={`/search-items/${formData.destination}`}>
+              <Link to={`/search-items/${searchContext.destination}`}>
                 <Button
                   variant="contained"
-                  sx={{ backgroundColor: "#284b63" }}
+                  sx={{
+                    backgroundColor: "#603140",
+                    "&:hover": {
+                      backgroundColor: "#603140", // Darker shade for hover
+                    },
+                  }}
                   type="submit"
                   fullWidth
                   style={{ height: "100%" }}

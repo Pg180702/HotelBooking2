@@ -7,10 +7,12 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Footer from "./Footer";
+import { UserContext } from "./UserContext";
 
 const UserBookings = () => {
+  const { userInfo } = useContext(UserContext);
   function RoomList({ roomsBooked }) {
     return (
       <div>
@@ -27,11 +29,12 @@ const UserBookings = () => {
   }
   const [bookings, setBookings] = useState([]);
   const [count, setCount] = useState(0);
-  const id = sessionStorage.getItem("userid");
+  const id = userInfo.id;
+  ``;
   // console.log(id);
   useEffect(() => {
     fetch(
-      `https://hotelbooking2-9b1p.onrender.com/api/v1/users/my-bookings/${id}`
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/my-bookings/${id}`
     ).then((response) => {
       response.json().then((data) => {
         setBookings(data);

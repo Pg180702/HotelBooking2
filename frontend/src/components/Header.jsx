@@ -21,15 +21,15 @@ const Header = () => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const username = sessionStorage.getItem("userid");
-  const adminusername = sessionStorage.getItem("username");
+  const username = userInfo.id;
+  const adminusername = userInfo.firstName;
   console.log(adminusername);
   const handleClose = () => {
     setAnchorEl(null);
   };
   //fix the logout error
   const handleLogout = () => {
-    sessionStorage.removeItem("userid");
+    setUserInfo(null);
     // fetch("http://localhost:4000/api/v1/users/logout").then((response) => {
     //   response.json().then((r) => console.log(r));
     // });

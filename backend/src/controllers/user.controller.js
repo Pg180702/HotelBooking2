@@ -10,6 +10,8 @@ const City = require("../models/cities.models");
 const Booking = require("../models/bookings.models");
 const Room = require("../models/rooms.models");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
+const client = require("../utils/redisClient");
+const DEFAULT_EXPIRATION = 3600;
 
 const generateAccessToken = async (userId) => {
   try {
@@ -79,8 +81,7 @@ const addHotel = async (req, res) => {
     childCount,
     facilities,
   } = req.body;
-  console.log(req.body);
-  //console.log(req.files);
+
   if (
     !name ||
     !city ||
@@ -94,10 +95,12 @@ const addHotel = async (req, res) => {
   ) {
     throw new ApiError(400, "All Fields Required");
   }
+
   const imagePaths = req.files;
   const imageUploads = await Promise.all(
     req.files.map((file) => uploadOnCloudinary(file.path))
   );
+
   if (!imageUploads) throw new ApiError(400, "Failed to Upload To Cloudinary");
   //console.log(imageUploads);
   const hotel = await Hotel.create({
@@ -112,34 +115,78 @@ const addHotel = async (req, res) => {
     facilities,
     images: imageUploads.map((image) => image.url),
   });
+
   const cities = City.findOneAndUpdate(
     { name: city, country: country },
     { $inc: { count: 1 } },
     { upsert: true }
   );
+
   res.status(200).json(hotel);
 };
 const searchHotels = async (req, res) => {
   const { destination } = req.params;
-  //console.log(destination);
+  const cachedKey = `destination-${destination}`;
+
   if (!destination) {
     throw new ApiError(400, "All Fields Required");
   }
-  const hotels = await Hotel.find({ city: destination });
-  console.log(hotels);
-  return res.status(200).json(hotels);
+
+  try {
+    const cachedData = await client.get(cachedKey);
+    if (cachedData) {
+      console.log("Cache Hit");
+      return res.status(200).json(JSON.parse(cachedData));
+    }
+
+    const hotels = await Hotel.find({ city: destination });
+    console.log(hotels);
+    await client.setEx(cachedKey, DEFAULT_EXPIRATION, JSON.stringify(hotels));
+    return res.status(200).json(hotels);
+  } catch (error) {
+    console.error("Redis Error:", error);
+    const hotels = await Hotel.find({ city: destination });
+    return res.status(200).json(hotels);
+  }
 };
 const searchItem = async (req, res) => {
   const { id } = req.params;
-  const hotel = await Hotel.findById(id);
-  //console.log(hotel);
-  return res.status(200).json(hotel);
+  const cachedKey = `hotel-${id}`;
+  try {
+    const cachedData = await client.get(cachedKey);
+    if (cachedData) {
+      console.log("Cache Hit");
+      return res.status(200).json(JSON.parse(cachedData));
+    }
+
+    const hotel = await Hotel.findById(id);
+    await client.setEx(cachedKey, DEFAULT_EXPIRATION, JSON.stringify(hotel));
+    return res.status(200).json(hotel);
+  } catch (error) {
+    console.error("Redis Error:", error);
+    const hotel = await Hotel.findById(id);
+    return res.status(200).json(hotel);
+  }
 };
 const bestHotels = async (req, res) => {
-  const hotels = await Hotel.find();
-  const limited = hotels.slice(1, 7);
-  //console.log(limited);
-  return res.status(200).json(limited);
+  //TODO: change this logic tto fetch based on reviews and ratings aggregate
+  const cachedKey = "bestHotels";
+  try {
+    const cachedData = await client.get(cachedKey);
+    if (cachedData) {
+      console.log("Cache Hit");
+      return res.status(200).json(JSON.parse(cachedData));
+    }
+    const hotels = await Hotel.find();
+    const limited = hotels.slice(1, 7);
+    await client.setEx(cachedKey, DEFAULT_EXPIRATION, JSON.stringify(limited));
+    return res.status(200).json(limited);
+  } catch (error) {
+    console.error("Redis Error:", error);
+    const hotels = await Hotel.find();
+    const limited = hotels.slice(1, 7);
+    return res.status(200).json(limited);
+  }
 };
 const cities = async (req, res) => {
   const cities = await City.find();
@@ -155,6 +202,7 @@ const booking = async (req, res) => {
 
   res.status(200).json(bookings);
 };
+
 const stripeSession = async (req, res) => {
   const {
     checkInDate,
@@ -166,15 +214,12 @@ const stripeSession = async (req, res) => {
     roomsToBook,
   } = req.body;
   console.log(req.body);
-  // let finalprice = 0;
   const hotelid = new mongoose.Types.ObjectId(id);
   const userBookingId = new mongoose.Types.ObjectId(userid);
   const hotelprice = await Hotel.findById(hotelid);
   const finalprice = roomsToBook.reduce((total, room) => total + room.price, 0);
   console.log(finalprice);
-  //const finalprice2 = finalprice * 100;
   const qty = Number(adultCount) + Number(childCount);
-  // console.log(price);
   const data = {
     price_data: {
       currency: "inr",
@@ -193,35 +238,39 @@ const stripeSession = async (req, res) => {
       checkOutDate: checkOutDate,
       adultCount: adultCount,
       childCount: childCount,
+      userId: userid,
+      hotelId: id,
+      roomsToBook: JSON.stringify(roomsToBook),
     },
     mode: "payment",
-    success_url: "https://hotel-booking2.vercel.app/success-page",
-    cancel_url: "https://hotel-booking2.vercel.app/cancel-page",
+    success_url: `${process.env.FRONTEND_URL}/success-page`,
+    cancel_url: `${process.env.FRONTEND_URL}/cancel-page`,
   });
-  console.log(data);
-  const roomsBooked = roomsToBook.map((room) => room.number);
-  await Promise.all(
-    roomsToBook.map(async (room) => {
-      const findroom = await Room.findById(room.roomid);
-      if (findroom) {
-        findroom.roomNumbers[0].unavailability = checkOutDate;
-        await findroom.save(); // Save the changes to the database
-      }
-    })
-  );
-  const booking = await Booking.create({
-    user: userBookingId,
-    checkInDate,
-    checkOutDate,
-    adultCount: Number(adultCount),
-    childCount: Number(childCount),
-    price: Number(qty * finalprice),
-    hotelName: hotelprice.name,
-    roomsBooked: roomsBooked,
-    hotelImage: hotelprice.images[0],
-  });
+  // console.log(data);
+  // const roomsBooked = roomsToBook.map((room) => room.number);
+  // await Promise.all(
+  //   roomsToBook.map(async (room) => {
+  //     const findroom = await Room.findById(room.roomid);
+  //     if (findroom) {
+  //       findroom.roomNumbers[0].unavailability = checkOutDate;
+  //       await findroom.save(); // Save the changes to the database
+  //     }
+  //   })
+  // );
+  // const booking = await Booking.create({
+  //   user: userBookingId,
+  //   checkInDate,
+  //   checkOutDate,
+  //   adultCount: Number(adultCount),
+  //   childCount: Number(childCount),
+  //   price: Number(qty * finalprice),
+  //   hotelName: hotelprice.name,
+  //   roomsBooked: roomsBooked,
+  //   hotelImage: hotelprice.images[0],
+  // });
   res.status(200).json({ id: session.id });
 };
+
 const myBookings = async (req, res) => {
   const { id } = req.params;
   console.log(id);
@@ -229,6 +278,7 @@ const myBookings = async (req, res) => {
   console.log(bookings);
   res.status(200).json(bookings);
 };
+
 const logout = async (req, res) => {
   const options = {
     httpOnly: true,
@@ -236,6 +286,7 @@ const logout = async (req, res) => {
   };
   res.status(200).clearCookie("auth_token", options).json("Logout Success");
 };
+
 const addRooms = async (req, res) => {
   const { typeOfRoom, price, maxPeople, desc, roomNumbers } = req.body;
   console.log(req.body);
@@ -267,9 +318,11 @@ const addRooms = async (req, res) => {
     res.status(500).json({ error: "Failed to create room" });
   }
 };
+
 const getRoomData = async (req, res) => {
   const { id } = req.params;
   const { date } = req.query;
+  console.log("inhere");
   console.log(date);
   const room = await Room.findById(id);
   // console.log(room);
@@ -278,6 +331,7 @@ const getRoomData = async (req, res) => {
     res.status(200).json(room);
   else res.json(null);
 };
+
 const updateRoom = async (req, res) => {
   const { id } = req.params;
   const { date } = req.body;

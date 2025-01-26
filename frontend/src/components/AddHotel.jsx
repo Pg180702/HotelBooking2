@@ -34,7 +34,7 @@ const AddHotel = () => {
     }
     console.log(formData);
     const response = await fetch(
-      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/add-hotel",
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/add-hotel`,
       {
         method: "POST",
         body: formData,

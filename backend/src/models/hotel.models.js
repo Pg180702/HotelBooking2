@@ -42,6 +42,7 @@ const hotelSchema = new mongoose.Schema(
     rooms: {
       type: [String],
     },
+    reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Review" }],
   },
   { timestamps: true }
 );

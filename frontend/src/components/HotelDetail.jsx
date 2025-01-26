@@ -8,6 +8,7 @@ import {
   Stack,
   TextField,
   Typography,
+  Divider,
 } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 
@@ -16,9 +17,10 @@ import { Link, useParams } from "react-router-dom";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { UserContext } from "./UserContext";
 import { loadStripe } from "@stripe/stripe-js";
-import Footer from "./Footer";
 import Modal from "@mui/material/Modal";
-import ImageSlider from "./ImageSlider";
+import UserReviews from "./UserReviews";
+import Carousel from "react-material-ui-carousel";
+import SearchContext from "./SearchContext";
 
 const style = {
   position: "absolute",
@@ -35,102 +37,78 @@ const HotelDetail = () => {
   const { id } = useParams();
   const { setUserInfo, userInfo } = useContext(UserContext);
   const [open, setOpen] = React.useState(false);
+  const adminusername = userInfo.username;
+  const username = userInfo.id;
+  const handleClose = () => setOpen(false);
+  const [hotel, setHotel] = useState({});
+  const [rooms, setRooms] = useState([]);
+  const [roomsToBook, setRoomsToBook] = useState([]);
+  const { searchContext, setSearchContext } = useContext(SearchContext);
+  const userid = userInfo.id;
   const handleOpen = () => {
     if (!username) alert("please login first");
     else {
       setRoomsToBook([]);
+      handleHotel();
       setOpen(true);
     }
   };
-  const adminusername = sessionStorage.getItem("username");
-  const username = sessionStorage.getItem("userid");
-  const handleClose = () => setOpen(false);
-  const [hotel, setHotel] = useState({});
-  const [checkInDate, setCheckInDate] = useState("");
-  const [checkOutDate, setCheckOutDate] = useState("");
-  const [adultCount, setAdultCount] = useState("");
-  const [childCount, setChildCount] = useState("");
-  const [rooms, setRooms] = useState([]);
-  const [checkOutDate2, setCheckOutDate2] = useState("");
-  const [roomsToBook, setRoomsToBook] = useState([]);
-  const userid = userInfo.id;
   useEffect(() => {
     fetch(
-      `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-item/${id}`
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/search-item/${id}`
     ).then((response) => {
       response.json().then((hotel) => setHotel(hotel));
     });
   }, []);
-  useEffect(() => {
-    handleHotel();
-  }, [checkInDate]);
   const roomsArray = hotel.rooms;
   const handleHotel = async () => {
-    console.log(checkOutDate);
-    Promise.all(
-      roomsArray.map((roomString) =>
-        fetch(
-          `https://hotelbooking2-9b1p.onrender.com/api/v1/users/get-roomdata/${roomString}?date=${checkOutDate2}`
-        ).then((response) => response.json())
-      )
-    ).then((roomsData) => {
-      // roomsData is an array of room objects received from fetch requests
-      console.log(roomsData);
-      const filteredRoomData = roomsData.filter((room) => room !== null);
-      setRooms((prevRooms) => [...prevRooms, ...filteredRoomData]);
-    });
+    if (!searchContext.checkInDate) alert("Please enter a valid check in date");
+    else {
+      let stringDate = convertDateToString(searchContext.checkInDate);
+      Promise.all(
+        roomsArray.map((roomString) =>
+          fetch(
+            `${
+              import.meta.env.VITE_BACKEND_URL
+            }/api/v1/users/get-roomdata/${roomString}?date=${stringDate}`
+          ).then((response) => response.json())
+        )
+      ).then((roomsData) => {
+        // roomsData is an array of room objects received from fetch requests
+        console.log(roomsData);
+        const filteredRoomData = roomsData.filter((room) => room !== null);
+        setRooms((prevRooms) => [...prevRooms, ...filteredRoomData]);
+      });
+    }
     //console.log(rooms);
   };
   const handleCheckInDate = (e) => {
-    let value = new Date(e);
-
-    let year = value.getFullYear();
-    let month = String(value.getMonth() + 1).padStart(2, "0");
-    let day = String(value.getDate()).padStart(2, "0");
-
-    let stringdate = `${year}-${month}-${day}`;
-    // console.log(stringdate);
-    setCheckOutDate2(stringdate);
-    setCheckInDate(stringdate);
+    setSearchContext({ ...searchContext, [checkInDate]: stringdate });
   };
   const handleCheckOutDate = (e) => {
-    let value = new Date(e);
+    setSearchContext({ ...searchContext, [checkOutDate]: stringdate });
+  };
+  const convertDateToString = (date) => {
+    let value = new Date(date);
 
     let year = value.getFullYear();
     let month = String(value.getMonth() + 1).padStart(2, "0");
     let day = String(value.getDate()).padStart(2, "0");
 
     let stringdate = `${year}-${month}-${day}`;
-    // console.log(stringdate);
-    setCheckOutDate(stringdate);
+
+    return stringdate;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const response = await fetch(
-    //   "http://localhost:4000/api/v1/users/booking/user-id",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       userid,
-    //       checkInDate,
-    //       checkOutDate,
-    //       adultCount,
-    //       childCount,
-    //     }),
-    //   }
-    // );
-    // if (response.ok) {
-    //   alert("Data submitted successfully");
-    // } else {
-    //   alert("Problem in booking");
-    // }
     const stripe = await loadStripe(
       "pk_test_51Oo4LkSH1zj9aeAXgpk3WSAMW62VpQz6dxbmjbGP4GhRYZDrBi6y5KAQBMoHhdTgqDyvxTxqXjq2msigk0e5qi4q00TYUmLVc9"
     );
-    const token = sessionStorage.getItem("token");
+    const token = userInfo.token;
+    const checkInDate = convertDateToString(searchContext.checkInDate);
+    const checkOutDate = convertDateToString(searchContext.checkOutDate);
+    const adultCount = searchContext.adultCount;
+    const childCount = searchContext.childCount;
     const reqbody = {
       checkInDate,
       checkOutDate,
@@ -145,7 +123,9 @@ const HotelDetail = () => {
       "Content-Type": "application/json",
     };
     const response = await fetch(
-      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/create-checkout-session",
+      `${
+        import.meta.env.VITE_BACKEND_URL
+      }/api/v1/users/create-checkout-session`,
       {
         method: "POST",
         headers: headers,
@@ -159,6 +139,14 @@ const HotelDetail = () => {
     });
     if (result.error) {
       console.log(result.error);
+    } else {
+      setSearchContext({
+        destination: "",
+        checkInDate: null,
+        checkOutDate: null,
+        adultCount: null,
+        childCount: null,
+      });
     }
   };
   const handleCheckboxChange = (rd, roomNumber, price, isChecked) => {
@@ -172,7 +160,6 @@ const HotelDetail = () => {
   if (!hotel.images || hotel.images.length === 0) {
     return <div>Loading...</div>; // or some loading indicator
   }
-
   return (
     <>
       <Box
@@ -183,79 +170,21 @@ const HotelDetail = () => {
       >
         <Stack direction="column" spacing={2}>
           <Typography variant="h4">{hotel.name}</Typography>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              maxWidth: "100%",
-              width: "100%",
-              height: { lg: 380, md: 500, sm: 350, xs: 300 },
-              marginBottom: "1rem",
-            }}
-          >
-            <ImageSlider imagesArray={hotel.images} />
-          </Box>
-          {/* <div style={{ display: "flex", justifyContent: "center" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
-                <Card>
-                  <CardMedia
-                    sx={{
-                      height: { lg: 360, md: 500, sm: 700, xs: 360 },
-                      backgroundRepeat: "no-repeat",
-                      backgroundPosition: "center",
-                      backgroundSize: "cover",
-                    }}
-                    image={hotel.images[0]}
-                  ></CardMedia>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Card>
-                  <CardMedia
-                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                    image={hotel.images[0]}
-                  ></CardMedia>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Card>
-                  <CardMedia
-                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                    image={hotel.images[0]}
-                  ></CardMedia>
-                </Card>
-              </Grid>
-            </Grid>
-          </div>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={4}>
-                <Card>
-                  <CardMedia
-                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                    image={hotel.images[0]}
-                  ></CardMedia>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Card>
-                  <CardMedia
-                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                    image={hotel.images[0]}
-                  ></CardMedia>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Card>
-                  <CardMedia
-                    sx={{ height: { lg: 360, md: 500, sm: 700, xs: 360 } }}
-                    image={hotel.images[0]}
-                  ></CardMedia>
-                </Card>
-              </Grid>
-            </Grid>
-          </div> */}
+          <Carousel>
+            {hotel.images.map((item, i) => (
+              <img
+                src={item}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "100%",
+                  display: "block",
+                  aspectRatio: "14 / 6",
+                }}
+              />
+            ))}
+          </Carousel>
+
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Grid container spacing={2}>
               <Grid item sm={8} xs={12}>
@@ -266,6 +195,7 @@ const HotelDetail = () => {
                   <DatePicker
                     label="Check In Date"
                     name="checkInDate"
+                    value={searchContext?.checkInDate}
                     onChange={(e) => {
                       handleCheckInDate(e);
                     }}
@@ -273,6 +203,7 @@ const HotelDetail = () => {
                   <DatePicker
                     label="Check Out Date"
                     name="checkOutDate"
+                    value={searchContext?.checkOutDate}
                     onChange={(e) => {
                       handleCheckOutDate(e);
                     }}
@@ -281,14 +212,26 @@ const HotelDetail = () => {
                     label="Adult Count"
                     type="number"
                     defaultValue={1}
-                    onChange={(e) => setAdultCount(e.target.value)}
+                    value={searchContext?.adultCount}
+                    onChange={(e) =>
+                      setSearchContext({
+                        ...searchContext,
+                        adultCount: e.target.value,
+                      })
+                    }
                     InputProps={{ inputProps: { min: 1 } }}
                   />
                   <TextField
                     label="Child Count"
                     type="number"
                     defaultValue={0}
-                    onChange={(e) => setChildCount(e.target.value)}
+                    value={searchContext?.childCount}
+                    onChange={(e) =>
+                      setSearchContext({
+                        ...searchContext,
+                        childCount: e.target.value,
+                      })
+                    }
                     InputProps={{ inputProps: { min: 0 } }}
                   />
                   <Button
@@ -307,7 +250,6 @@ const HotelDetail = () => {
               <Button>Add Room</Button>
             </Link>
           )}
-          {/* <Button>Open modal</Button> */}
           <Modal
             open={open}
             onClose={handleClose}
@@ -382,6 +324,8 @@ const HotelDetail = () => {
           </Modal>
 
           {/* <Button onClick={handleHotel}>Check</Button> */}
+          <Divider />
+          <UserReviews hotelId={id} />
         </Stack>
       </Box>
       {/* <Footer /> */}

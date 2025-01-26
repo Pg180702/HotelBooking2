@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "https://hotelbooking2-9b1p.onrender.com/api/v1/users/login",
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/login`,
       {
         method: "POST",
         body: JSON.stringify({ email, password }),
@@ -29,9 +29,6 @@ const Login = () => {
     if (response.ok) {
       response.json().then((userInfo) => {
         console.log(userInfo);
-        sessionStorage.setItem("userid", userInfo.id);
-        sessionStorage.setItem("username", userInfo.firstName);
-        sessionStorage.setItem("token", userInfo.token);
         setUserInfo(userInfo);
         setRedirect(true);
       });

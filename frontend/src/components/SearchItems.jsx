@@ -22,7 +22,9 @@ const SearchItems = () => {
     const fetchHotels = async () => {
       try {
         const response = await fetch(
-          `https://hotelbooking2-9b1p.onrender.com/api/v1/users/search-items/${dest}`
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/v1/users/search-items/${dest}`
         );
         const resData = await response.json();
         setHotels(resData);
