@@ -89,6 +89,7 @@ const HotelDetail = () => {
     setSearchContext({ ...searchContext, [checkOutDate]: stringdate });
   };
   const convertDateToString = (date) => {
+    //this function converts a date to a string
     let value = new Date(date);
 
     let year = value.getFullYear();
