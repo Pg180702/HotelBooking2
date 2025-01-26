@@ -82,12 +82,6 @@ const HotelDetail = () => {
     }
     //console.log(rooms);
   };
-  const handleCheckInDate = (e) => {
-    setSearchContext({ ...searchContext, [checkInDate]: e });
-  };
-  const handleCheckOutDate = (e) => {
-    setSearchContext({ ...searchContext, [checkOutDate]: e });
-  };
   const convertDateToString = (date) => {
     //this function converts a date to a string
     let value = new Date(date);
@@ -99,6 +93,11 @@ const HotelDetail = () => {
     let stringdate = `${year}-${month}-${day}`;
 
     return stringdate;
+  };
+  const handleInputChange = (eventOrValue, fieldName = null) => {
+    if (fieldName) {
+      setSearchContext({ ...searchContext, [fieldName]: eventOrValue });
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -197,16 +196,28 @@ const HotelDetail = () => {
                     label="Check In Date"
                     name="checkInDate"
                     value={searchContext?.checkInDate}
-                    onChange={(e) => {
-                      handleCheckInDate(e);
+                    onChange={(newValue) =>
+                      handleInputChange(newValue, "checkInDate")
+                    }
+                    slotProps={{
+                      textField: {
+                        variant: "outlined",
+                        placeholder: "Check In Date",
+                      },
                     }}
                   />
                   <DatePicker
                     label="Check Out Date"
                     name="checkOutDate"
                     value={searchContext?.checkOutDate}
-                    onChange={(e) => {
-                      handleCheckOutDate(e);
+                    onChange={(newValue) =>
+                      handleInputChange(newValue, "checkOutDate")
+                    }
+                    slotProps={{
+                      textField: {
+                        variant: "outlined",
+                        placeholder: "Check Out Date",
+                      },
                     }}
                   />
                   <TextField
