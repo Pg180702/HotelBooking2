@@ -310,6 +310,7 @@ const UserReviews = ({ hotelId }) => {
                   <Button
                     variant="contained"
                     onClick={handleOpenReview}
+                    fullWidth
                     sx={{ backgroundColor: "#284b63", marginTop: "2rem" }}
                   >
                     Add A Review
@@ -322,6 +323,7 @@ const UserReviews = ({ hotelId }) => {
               <Button
                 variant="contained"
                 onClick={handleOpenReview}
+                fullWidth
                 sx={{ backgroundColor: "#284b63", marginTop: "2rem" }}
               >
                 Add A Review

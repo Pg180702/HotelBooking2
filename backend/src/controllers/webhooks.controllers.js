@@ -1,6 +1,7 @@
 const express = require("express");
 const Room = require("../models/rooms.models");
 const Hotel = require("../models/hotel.models");
+const Booking = require("../models/bookings.models");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET_KEY;
 

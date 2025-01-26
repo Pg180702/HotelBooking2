@@ -83,10 +83,10 @@ const HotelDetail = () => {
     //console.log(rooms);
   };
   const handleCheckInDate = (e) => {
-    setSearchContext({ ...searchContext, [checkInDate]: stringdate });
+    setSearchContext({ ...searchContext, [checkInDate]: e });
   };
   const handleCheckOutDate = (e) => {
-    setSearchContext({ ...searchContext, [checkOutDate]: stringdate });
+    setSearchContext({ ...searchContext, [checkOutDate]: e });
   };
   const convertDateToString = (date) => {
     //this function converts a date to a string
